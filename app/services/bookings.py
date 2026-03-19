@@ -53,7 +53,7 @@ class BookingService:
             booking_reference=data_dict.get("booking_ref") or data_dict.get("BookingReference") or "N/A",
             pnr=data_dict.get("pnr") or data_dict.get("PNR") or "N/A",
             status=data_dict.get("status") or "UNKNOWN",
-            status_code=data_dict.get("StatusCode") or "XX",
+            status_code=data_dict.get("status_code") or data_dict.get("StatusCode") or "XX",
             offer_id=data_dict.get("offer_id") or "N/A",
             passengers=passengers,
             contact=contact,
