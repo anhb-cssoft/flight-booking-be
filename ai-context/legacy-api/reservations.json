@@ -1,0 +1,91 @@
+{
+  "endpoint": "GET /api/v1/reservations/{ref}",
+  "description": "Retrieve a booking by reference or PNR. Error format: {'status': 'error', 'msg': '...'} — yet another format!",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "path_params": {
+    "ref": "EG03AF14"
+  },
+  "response": {
+    "status": "ok",
+    "data": {
+      "reservation": {
+        "booking_ref": "EG03AF14",
+        "BookingReference": "EG03AF14",
+        "pnr": "E69137Z",
+        "PNR": "E69137Z",
+        "status": "CONFIRMED",
+        "StatusCode": "HK",
+        "offer_id": "93f1d242d6fddd80",
+        "passengers": [
+          {
+            "pax_id": "PAX1",
+            "title": "Mr",
+            "first_name": "John",
+            "FirstName": "John",
+            "last_name": "Doe",
+            "LastName": "Doe",
+            "name": "Doe/John Mr",
+            "dob": "1990-01-01",
+            "DateOfBirth": "1990-01-01",
+            "nationality": "US",
+            "passport_no": "123456789",
+            "type": "ADT",
+            "PaxType": "ADT"
+          }
+        ],
+        "contact": {
+          "email": "testuser@gmail.com",
+          "phone": "1234567890",
+          "EmailAddress": "testuser@gmail.com"
+        },
+        "ticketing": {
+          "status": "PENDING",
+          "time_limit": "20260321091113",
+          "ticket_numbers": []
+        },
+        "created_at": "20260319141113",
+        "CreatedDateTime": 1773929473
+      },
+      "Reservation": {
+        "booking_ref": "EG03AF14",
+        "BookingReference": "EG03AF14",
+        "pnr": "E69137Z",
+        "PNR": "E69137Z",
+        "status": "CONFIRMED",
+        "StatusCode": "HK",
+        "offer_id": "93f1d242d6fddd80",
+        "passengers": [
+          {
+            "pax_id": "PAX1",
+            "title": "Mr",
+            "first_name": "John",
+            "FirstName": "John",
+            "last_name": "Doe",
+            "LastName": "Doe",
+            "name": "Doe/John Mr",
+            "dob": "1990-01-01",
+            "DateOfBirth": "1990-01-01",
+            "nationality": "US",
+            "passport_no": "123456789",
+            "type": "ADT",
+            "PaxType": "ADT"
+          }
+        ],
+        "contact": {
+          "email": "testuser@gmail.com",
+          "phone": "1234567890",
+          "EmailAddress": "testuser@gmail.com"
+        },
+        "ticketing": {
+          "status": "PENDING",
+          "time_limit": "20260321091113",
+          "ticket_numbers": []
+        },
+        "created_at": "20260319141113",
+        "CreatedDateTime": 1773929473
+      }
+    }
+  }
+}

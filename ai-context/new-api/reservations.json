@@ -1,0 +1,28 @@
+{
+  "endpoint": "GET /api/v1/bookings/{ref}",
+  "description": "Retrieve a booking by reference or PNR. Error format: {'status': 'error', 'msg': '...'} — yet another format!",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "path_params": {
+    "ref": "EG03AF14"
+  },
+  "response": {
+    "bookingReference": "N/A",
+    "pnr": "N/A",
+    "status": "UNKNOWN",
+    "statusCode": "XX",
+    "offerId": "N/A",
+    "passengers": [],
+    "contact": {
+      "email": "unknown@email.com",
+      "phone": null
+    },
+    "ticketing": {
+      "status": "PENDING",
+      "timeLimit": null,
+      "ticketNumbers": []
+    },
+    "createdAt": "2026-03-19T14:14:33.892417Z"
+  }
+}

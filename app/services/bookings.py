@@ -17,6 +17,12 @@ class BookingService:
         # In a real scenario, we'd parse this into LegacyBookingResponse model
         data_dict = legacy_res.get("data", {}) if isinstance(legacy_res.get("data"), dict) else legacy_res
         
+        # Handle GET /reservations nesting where data is inside 'reservation' or 'Reservation'
+        if "reservation" in data_dict:
+            data_dict = data_dict["reservation"]
+        elif "Reservation" in data_dict:
+            data_dict = data_dict["Reservation"]
+            
         # Transform data to BFF structure
         passengers = [
             bff_schemas.BookingPassengerResponse(

@@ -94,3 +94,52 @@ async def test_create_booking_success():
         
         # Verify timestamps
         assert data["createdAt"] == "2026-03-19T11:07:31Z"
+
+@pytest.mark.asyncio
+async def test_get_booking_success():
+    # Mocking the legacy API get reservation response
+    mock_legacy_res = {
+        "status": "ok",
+        "data": {
+            "reservation": {
+                "booking_ref": "EG03AF14",
+                "pnr": "E69137Z",
+                "status": "CONFIRMED",
+                "StatusCode": "HK",
+                "offer_id": "93f1d242d6fddd80",
+                "passengers": [
+                    {
+                        "pax_id": "PAX1",
+                        "title": "Mr",
+                        "first_name": "John",
+                        "last_name": "Doe",
+                        "dob": "1990-01-01",
+                        "type": "ADT"
+                    }
+                ],
+                "contact": {
+                    "email": "testuser@gmail.com",
+                    "phone": "1234567890"
+                },
+                "ticketing": {
+                    "status": "PENDING",
+                    "time_limit": "20260321091113",
+                    "ticket_numbers": []
+                },
+                "created_at": "20260319141113"
+            }
+        }
+    }
+
+    with patch("app.clients.legacy_api.legacy_api_client.get_reservation", new_callable=AsyncMock) as mock_get:
+        mock_get.return_value = mock_legacy_res
+
+        response = client.get("/api/v1/bookings/EG03AF14")
+
+        assert response.status_code == 200
+        data = response.json()
+        
+        assert data["bookingReference"] == "EG03AF14"
+        assert data["pnr"] == "E69137Z"
+        assert data["passengers"][0]["paxId"] == "PAX1"
+        assert data["ticketing"]["timeLimit"] == "2026-03-21T09:11:13Z"
