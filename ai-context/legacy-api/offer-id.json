@@ -1,0 +1,74 @@
+{
+  "endpoint": "GET /api/v2/offer/{offer_id}",
+  "description": "Get details for a specific offer. NOTE: Intentionally different API version (/v2/) from search (/v1/). Error format: {'errors': [{'code': '...', 'detail': '...'}]}",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "path_params": {
+    "offer_id": "93f1d242d6fddd80"
+  },
+  "response": {
+    "data": {
+      "offer": {
+        "id": "93f1d242d6fddd80",
+        "offer_id": "93f1d242d6fddd80",
+        "status": "LIVE",
+        "StatusCode": "A",
+        "fare_details": {
+          "rules": {
+            "refund": {
+              "allowed": false,
+              "penalty": {
+                "amount": 150,
+                "currency": "MYR",
+                "CurrencyCode": "MYR"
+              }
+            },
+            "change": {
+              "allowed": true,
+              "penalty": {
+                "amount": 200,
+                "currency": "MYR"
+              }
+            },
+            "no_show": {
+              "penalty": {
+                "amount": 200,
+                "currency": "MYR"
+              }
+            }
+          },
+          "fare_family": "FLEX",
+          "FareFamily": "PM"
+        },
+        "baggage_allowance": {
+          "checked": {
+            "quantity": 1,
+            "max_weight_kg": 30,
+            "MaxWeight": "25KG"
+          },
+          "carry_on": {
+            "quantity": 1,
+            "max_weight_kg": 7
+          }
+        },
+        "conditions": {
+          "advance_purchase_days": 7,
+          "min_stay_days": 3,
+          "max_stay_days": 90
+        },
+        "payment_requirements": {
+          "accepted_methods": ["CC", "DC", "BT"],
+          "time_limit": "20/03/2026 08:46",
+          "instant_ticketing_required": true
+        },
+        "created_at": "19/03/2026 07:46",
+        "expires_at": "20260319082124"
+      }
+    },
+    "meta": {
+      "request_id": "42fc2b5c-65cb-4744-bfee-86aea519d5fc",
+      "provider": "GDS_SABRE"
+    }
+  }
+}

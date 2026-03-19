@@ -80,16 +80,50 @@ class FlightService:
         
         pricing = legacy_offer.get("pricing", {})
         
-        # Return the raw cabin code (Y, W, J, or F) as requested
-        final_cabin = legacy_offer.get("cabin_class") or legacy_offer.get("booking_class") or detected_cabin_code or "Y"
+        # Cabin logic
+        cabin_code = legacy_offer.get("cabin_class") or legacy_offer.get("booking_class") or detected_cabin_code or "Y"
+        cabin_reverse_map = {
+            "Y": "ECONOMY",
+            "W": "PREMIUM_ECONOMY",
+            "J": "BUSINESS",
+            "F": "FIRST"
+        }
+        final_cabin_label = cabin_reverse_map.get(cabin_code.upper(), "ECONOMY")
+
+        # Fare Rules logic (Enrichment)
+        fare_details = legacy_offer.get("fare_details", {})
+        rules = fare_details.get("rules", {})
+        refund = rules.get("refund", {})
+        change = rules.get("change", {})
+        
+        fare_rules = None
+        if rules:
+            fare_rules = bff_schemas.FareRules(
+                refund_allowed=refund.get("allowed", True),
+                refund_penalty=refund.get("penalty", {}).get("amount"),
+                change_allowed=change.get("allowed", True),
+                change_penalty=change.get("penalty", {}).get("amount"),
+                currency=refund.get("penalty", {}).get("currency") or "USD"
+            )
+
+        # Baggage logic (Enrichment)
+        baggage_data = legacy_offer.get("baggage_allowance", {})
+        baggage = None
+        if baggage_data:
+            baggage = bff_schemas.BaggageAllowance(
+                checked_kg=baggage_data.get("checked", {}).get("max_weight_kg"),
+                carry_on_kg=baggage_data.get("carry_on", {}).get("max_weight_kg")
+            )
 
         return bff_schemas.FlightOffer(
-            offer_id=legacy_offer.get("offer_id"),
-            total_price=float(pricing.get("total", 0)),
-            currency=pricing.get("currency", "USD"),
+            offer_id=legacy_offer.get("offer_id") or legacy_offer.get("id"),
+            total_price=float(pricing.get("total", 0)) if pricing else 0.0,
+            currency=pricing.get("currency", "USD") if pricing else "USD",
             segments=segments,
-            is_refundable=legacy_offer.get("refundable", False),
-            cabin_class=final_cabin.upper()
+            is_refundable=legacy_offer.get("refundable", refund.get("allowed", True)),
+            cabin_class=final_cabin_label,
+            fare_rules=fare_rules,
+            baggage=baggage
         )
 
     async def search_flights(self, search_req: bff_schemas.FlightSearchRequest) -> bff_schemas.FlightSearchResponse:
@@ -138,6 +172,12 @@ class FlightService:
 
     async def get_offer_details(self, offer_id: str) -> bff_schemas.FlightOffer:
         legacy_data = await legacy_api_client.get_offer_details(offer_id)
-        return await self._map_legacy_offer_to_bff(legacy_data)
+        # Extract correctly from legacy nesting
+        offer_node = legacy_data.get("data", {}).get("offer", {})
+        if not offer_node:
+            # Fallback if the nesting is different
+            offer_node = legacy_data.get("offer", {}) or legacy_data
+            
+        return await self._map_legacy_offer_to_bff(offer_node)
 
 flight_service = FlightService()

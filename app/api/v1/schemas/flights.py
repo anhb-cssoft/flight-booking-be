@@ -17,13 +17,27 @@ class FlightSegment(BaseModel):
     arrival_at: datetime
     duration_minutes: int
 
+class FareRules(BaseModel):
+    refund_allowed: bool
+    refund_penalty: Optional[float] = None
+    change_allowed: bool
+    change_penalty: Optional[float] = None
+    currency: Optional[str] = "USD"
+
+class BaggageAllowance(BaseModel):
+    checked_kg: Optional[int] = None
+    carry_on_kg: Optional[int] = None
+
 class FlightOffer(BaseModel):
     offer_id: str
-    total_price: float
+    total_price: Optional[float] = 0.0
     currency: str = "USD"
-    segments: List[FlightSegment]
+    segments: List[FlightSegment] = []
     is_refundable: bool = True
     cabin_class: str
+    # Enriched details for the details endpoint
+    fare_rules: Optional[FareRules] = None
+    baggage: Optional[BaggageAllowance] = None
 
 class FlightSearchRequest(BaseModel):
     origin: str
