@@ -1,0 +1,43 @@
+{
+  "endpoint": "POST /api/v1/bookings",
+  "description": "Create a booking. NOTE: Intentionally no /api/ prefix — inconsistent with other endpoints. Error format: {'fault': {'faultstring': '...', 'faultcode': '...'}}",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "request": {
+    "body": {
+      "offer_id": "93f1d242d6fddd80",
+      "passengers": [
+        {
+          "title": "Mr",
+          "first_name": "John",
+          "last_name": "Doe",
+          "dob": "1990-01-01",
+          "nationality": "US",
+          "passport_no": "123456789",
+          "email": "testuser@gmail.com",
+          "phone": "1234567890"
+        }
+      ],
+      "contact_email": "testuser@gmail.com",
+      "contact_phone": "1234567890"
+    }
+  },
+  "response": {
+    "bookingReference": "EGD69669",
+    "status": "CONFIRMED",
+    "totalPrice": 0,
+    "currency": "USD",
+    "passengers": [
+      {
+        "firstName": "John",
+        "lastName": "Doe",
+        "title": "Mr",
+        "email": "testuser@gmail.com",
+        "phone": "1234567890",
+        "passportNo": "123456789"
+      }
+    ],
+    "offerDetails": null
+  }
+}

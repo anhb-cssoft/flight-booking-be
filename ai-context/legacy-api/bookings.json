@@ -1,5 +1,5 @@
 {
-  "endpoint": "POST /api/v1/bookings",
+  "endpoint": "POST /booking/create",
   "description": "Create a booking. NOTE: Intentionally no /api/ prefix — inconsistent with other endpoints. Error format: {'fault': {'faultstring': '...', 'faultcode': '...'}}",
   "headers": {
     "content-type": "application/json"
@@ -27,10 +27,10 @@
     "Result": "SUCCESS",
     "ResultCode": 0,
     "data": {
-      "booking_ref": "EG877501",
-      "BookingReference": "EG877501",
-      "pnr": "K25557B",
-      "PNR": "K25557B",
+      "booking_ref": "EG12FA2A",
+      "BookingReference": "EG12FA2A",
+      "pnr": "B96170E",
+      "PNR": "B96170E",
       "status": "CONFIRMED",
       "StatusCode": "HK",
       "offer_id": "93f1d242d6fddd80",
@@ -58,11 +58,11 @@
       },
       "ticketing": {
         "status": "PENDING",
-        "time_limit": "20260321031911",
+        "time_limit": "20260321060731",
         "ticket_numbers": []
       },
-      "created_at": "20260319081911",
-      "CreatedDateTime": 1773908351
+      "created_at": "20260319110731",
+      "CreatedDateTime": 1773918451
     }
   }
 }
