@@ -1,21 +1,21 @@
 # Project Mandates: Flight Booking BFF (FastAPI)
 
-Bạn là một Senior Backend Engineer đang thực hiện bài test tuyển dụng. Mọi hành động của bạn phải thể hiện sự chuyên nghiệp, sạch sẽ và tư duy hệ thống cao.
+You are a Senior Backend Engineer performing a technical assessment. All actions must demonstrate professionalism, clean code, and high-level systemic thinking.
 
-## 1. Kiến trúc (Architecture)
-Chúng ta sẽ tuân thủ nghiêm ngặt mô hình **Layered Architecture**:
-- `app/api/`: Định nghĩa các endpoint (Routes), quản lý request/response schema (Downstream models).
-- `app/services/`: Chứa logic nghiệp vụ, điều phối dữ liệu giữa các clients và thực hiện transformation.
-- `app/clients/`: Chứa `LegacyAPIClient` chịu trách nhiệm gọi lên hệ thống cũ. Định nghĩa Pydantic models cho dữ liệu thô (Upstream models).
-- `app/core/`: Cấu hình hệ thống, logging, security, và các tiện ích dùng chung (resilience, caching).
+## 1. Architecture
+We strictly adhere to a **Layered Architecture**:
+- `app/api/`: Endpoint definitions (Routes), request/response schema management (Downstream models).
+- `app/services/`: Business logic, data orchestration between clients, and data transformation.
+- `app/clients/`: `LegacyAPIClient` responsible for calling the upstream system. Definitions of Pydantic models for raw data (Upstream models).
+- `app/core/`: System configuration, logging, security, and shared utilities (resilience, caching).
 
-## 2. Quy tắc Code (Rules)
-- **Transformation First**: Tuyệt đối không để leak model của Legacy API ra ngoài Frontend. Mọi data từ Legacy phải qua bước transform sang Flat Structure.
+## 2. Coding Standards
+- **Transformation First**: Upstream (Legacy) models must never leak to the Frontend. All legacy data must be transformed into a Flat Structure.
 - **Naming Convention**: 
     - Python: `snake_case`.
-    - JSON Response: `camelCase` (Sử dụng Pydantic configuration để tự động convert).
-- **Date/Time**: Mọi format ngày tháng từ Legacy phải được chuẩn hóa về **ISO 8601** (`YYYY-MM-DDTHH:mm:ssZ`).
-- **Error Handling**: Thống nhất 4 loại lỗi của Legacy về 1 định dạng duy nhất:
+    - JSON Response: `camelCase` (Use Pydantic configuration for automatic conversion).
+- **Date/Time**: All legacy formats must be normalized to **ISO 8601** (`YYYY-MM-DDTHH:mm:ssZ`).
+- **Error Handling**: Consolidate the four legacy error formats into a single unified structure:
   ```json
   {
     "error": {
@@ -25,21 +25,21 @@ Chúng ta sẽ tuân thủ nghiêm ngặt mô hình **Layered Architecture**:
     }
   }
   ```
-- **Type Hinting**: Bắt buộc sử dụng Python Type Hints cho 100% code.
+- **Type Hinting**: 100% code coverage with Python Type Hints is mandatory.
 
-## 3. Quy trình làm việc (Workflow)
-1. **Research Phase**: Khám phá Legacy Swagger.
-2. **Contract First**: Định nghĩa Pydantic models cho Downstream (cái mà Frontend muốn).
-3. **Client Implementation**: Viết client gọi Legacy API với Resilience (Retry, Timeout).
-4. **Service Layer**: Thực hiện logic "Flattening" và "Labeling" (Code -> Label).
-5. **Validation**: Viết Unit/Integration tests cho từng endpoint.
+## 3. Workflow
+1. **Research Phase**: Explore Legacy Swagger.
+2. **Contract First**: Define Pydantic models for Downstream (what the Frontend expects).
+3. **Client Implementation**: Build the Legacy API client with Resilience (Retry, Timeout).
+4. **Service Layer**: Implement "Flattening" and "Labeling" (Code-to-Label mapping).
+5. **Validation**: Write Unit/Integration tests for each endpoint.
 
-## 4. AI Workflow Documentation (Bắt buộc)
-Lưu lại nhật ký sử dụng AI vào file `AI_WORKFLOW.md`:
-- Prompt nào hiệu quả?
-- Chỗ nào AI làm sai và bạn đã sửa như thế nào?
-- Công cụ: Gemini CLI, GitHub Copilot.
+## 4. AI Workflow Documentation (Mandatory)
+Maintain an `AI_WORKFLOW.md` log:
+- Which prompts were effective?
+- Where did the AI fail, and how did you correct it?
+- Tools: Gemini CLI, GitHub Copilot.
 
 ## 5. Resilience & Caching
-- Sử dụng `tenacity` cho Retry logic khi gặp `503` hoặc `429` từ Legacy.
-- Sử dụng `LRU Cache` hoặc `Redis` cho dữ liệu Airport (ít thay đổi).
+- Use `tenacity` for Retry logic on `503` or `429` errors.
+- Implement `LRU Cache` or `Redis` for static metadata (Airports).

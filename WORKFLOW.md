@@ -1,33 +1,33 @@
 # Project Development Workflow
 
-Mọi bước thực hiện phải được phản ánh bằng Git Commits tương ứng với từng sub-task.
+All steps must be reflected in Git Commits corresponding to each sub-task.
 
-## Giai đoạn 1: Setup & Scaffolding (15-30p)
-- Khởi tạo thư mục `app/` theo Layered Architecture.
-- Cấu hình `pyproject.toml` (với `fastapi`, `uvicorn`, `httpx`, `pydantic-settings`, `tenacity`).
-- Viết file `main.py` khung xương.
+## Phase 1: Setup & Scaffolding (15-30m)
+- Initialize `app/` directory according to Layered Architecture.
+- Configure `pyproject.toml` (FastAPI, uvicorn, httpx, pydantic-settings, tenacity).
+- Implement boilerplate `main.py`.
 
-## Giai đoạn 2: Legacy Client & Base Resilience (1h)
-- Viết `LegacyAPIClient` sử dụng `httpx.AsyncClient`.
-- Cài đặt retry logic với `tenacity`.
-- Định nghĩa Base Error Transformer (chuyển 4 loại lỗi legacy về 1 chuẩn).
+## Phase 2: Legacy Client & Base Resilience (1h)
+- Build `LegacyAPIClient` using `httpx.AsyncClient`.
+- Implement retry logic with `tenacity`.
+- Define Base Error Transformer (unifying 4 legacy error types).
 
-## Giai đoạn 3: Flight Search - Trọng tâm (2h)
-- Khám phá `/api/v1/flightsearch` của Legacy.
-- Thiết kế **Downstream Schema**: Phẳng, lược bỏ thông tin rác.
-- Viết `SearchService`: Xử lý Flattening + Labeling (đổi mã hãng bay MH -> Malaysia Airlines).
-- Implement Pagination trên Wrapper (vì Legacy không có).
+## Phase 3: Flight Search - Core Feature (2h)
+- Reverse-engineer Legacy `/api/v1/flightsearch`.
+- Design **Downstream Schema**: Flat, lean, and cleaned of noise.
+- Implement `SearchService`: Flattening + Labeling (e.g., MH -> Malaysia Airlines).
+- Implement Wrapper-level Pagination (Legacy lacks it).
 
-## Giai đoạn 4: Booking Flow (2h)
-- Implement `/api/v1/offers/{id}` và `/api/v1/bookings`.
-- Đảm bảo validation đầu vào cho booking là cực kỳ chặt chẽ.
-- Mocking các response phức tạp nếu cần để test edge cases.
+## Phase 4: Booking Flow (2h)
+- Implement `/api/v1/offers/{id}` and `/api/v1/bookings`.
+- Ensure strict input validation for booking requests.
+- Mock complex responses for edge-case testing.
 
-## Giai đoạn 5: Caching & Airport Metadata (1h)
-- Implement caching layer cho `/api/airports`.
-- Kết hợp dữ liệu từ List Airport và Single Airport (theo yêu cầu legacy thiếu city name trong list).
+## Phase 5: Caching & Airport Metadata (1h)
+- Implement caching layer for `/api/airports`.
+- Merge data from List Airport and Single Airport (Legacy omits city names in the list).
 
-## Giai đoạn 6: Final Polish & Documentation (1h)
-- Kiểm tra lại Swagger UI.
-- Viết tài liệu giải thích kiến trúc (README.md chính).
-- Kiểm tra lại các resilience pattern với `?simulate_issues=true`.
+## Phase 6: Final Polish & Documentation (1h)
+- Review Swagger UI for consistency.
+- Write architecture documentation (main README.md).
+- Verify resilience patterns with `?simulate_issues=true`.
