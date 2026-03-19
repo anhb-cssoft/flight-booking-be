@@ -1,0 +1,2040 @@
+{
+  "endpoint": "POST /api/v1/flightsearch",
+  "description": "Search flights. Returns ALL results with no pagination. Response is deeply nested and contains redundant fields. Error format: {'error': {'message': '...', 'code': N}}",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "request": {
+    "body": {
+      "origin": "KUL",
+      "destination": "SIN",
+      "departure_date": "2024-12-20",
+      "return_date": "2024-12-27",
+      "pax_count": 1,
+      "cabin": "Y"
+    }
+  },
+  "response": {
+    "Status": "OK",
+    "StatusCode": 200,
+    "data": {
+      "search_id": "28e48dac-a777-472c-b6d7-981316f6bbce",
+      "SearchId": "32adb1f1-3062-47e8-95e8-bd1c3a279ab6",
+      "flight_results": {
+        "outbound": {
+          "results": [
+            {
+              "offer_id": "93f1d242d6fddd80",
+              "offerId": "93f1d242d6fddd80",
+              "segments": {
+                "segment_list": [
+                  {
+                    "leg_data": [
+                      {
+                        "departure_info": {
+                          "airport": {
+                            "code": "KUL",
+                            "terminal": "3"
+                          },
+                          "scheduled_time": "20/12/2024 21:40",
+                          "dt": "20/12/2024 21:40"
+                        },
+                        "arrival_info": {
+                          "airport": {
+                            "code": "SIN",
+                            "terminal": "2"
+                          },
+                          "scheduled_time": "20241220223900",
+                          "arr_date": "2024-12-20"
+                        },
+                        "carrier": {
+                          "operating": "MH",
+                          "marketing": "MH",
+                          "mktg_carrier": "MH",
+                          "flight_no": "790",
+                          "number": "MH790"
+                        },
+                        "equipment": {
+                          "aircraft_code": "333",
+                          "type": "333"
+                        },
+                        "cabin": "Y",
+                        "cabin_class": "Y",
+                        "duration_minutes": 59,
+                        "elapsed_time": "0h 59m"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "stops": 0,
+              "num_stops": 0,
+              "total_journey_time": 59,
+              "total_journey": "0h 59m",
+              "pricing": {
+                "currency": "MYR",
+                "CurrencyCode": "MYR",
+                "total": 88.84,
+                "total_amount": "88.84",
+                "totalAmountDecimal": 88.84,
+                "per_pax": 88.84,
+                "base_fare": 77.67,
+                "BaseFare": 77.67,
+                "taxes_fees": {
+                  "tax_breakdown": [
+                    {
+                      "code": "YQ",
+                      "amount": 5.51
+                    },
+                    {
+                      "code": "UB",
+                      "amount": 5.66
+                    }
+                  ],
+                  "total_tax": 11.17,
+                  "TotalTax": "11.17"
+                },
+                "pax_count": 1
+              },
+              "fare_basis": "Y1M",
+              "booking_class": "Y",
+              "seats_remaining": 9,
+              "avl_seats": 9,
+              "seatAvailability": 9,
+              "validating_carrier": "MH",
+              "last_ticketing_date": "19-Dec-2024 09:40 PM",
+              "baggage": {
+                "checked": {
+                  "pieces": 1,
+                  "weight_kg": 20,
+                  "Weight": "20KG"
+                },
+                "cabin_baggage": {
+                  "pieces": 1,
+                  "weight_kg": 7
+                }
+              },
+              "refundable": false,
+              "isRefundable": false
+            },
+            {
+              "offer_id": "698737ab893df29b",
+              "offerId": "698737ab893df29b",
+              "segments": {
+                "segment_list": [
+                  {
+                    "leg_data": [
+                      {
+                        "departure_info": {
+                          "airport": {
+                            "code": "KUL",
+                            "terminal": "3"
+                          },
+                          "scheduled_time": "2024-12-20T17:30:00+08:00",
+                          "dt": "20/12/2024 17:30"
+                        },
+                        "arrival_info": {
+                          "airport": {
+                            "code": "SIN",
+                            "terminal": "2"
+                          },
+                          "scheduled_time": "20-Dec-2024 06:27 PM",
+                          "arr_date": "2024-12-20"
+                        },
+                        "carrier": {
+                          "operating": "MH",
+                          "marketing": "MH",
+                          "mktg_carrier": "MH",
+                          "flight_no": "520",
+                          "number": "MH520"
+                        },
+                        "equipment": {
+                          "aircraft_code": "333",
+                          "type": "333"
+                        },
+                        "cabin": "Y",
+                        "cabin_class": "Y",
+                        "duration_minutes": 57,
+                        "elapsed_time": "0h 57m"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "stops": 0,
+              "num_stops": 0,
+              "total_journey_time": 57,
+              "total_journey": "0h 57m",
+              "pricing": {
+                "currency": "MYR",
+                "CurrencyCode": "MYR",
+                "total": 98.43,
+                "total_amount": "98.43",
+                "totalAmountDecimal": 98.43,
+                "per_pax": 98.43,
+                "base_fare": 83.69,
+                "BaseFare": 83.69,
+                "taxes_fees": {
+                  "tax_breakdown": [
+                    {
+                      "code": "D8",
+                      "amount": 6.63
+                    },
+                    {
+                      "code": "YQ",
+                      "amount": 4.14
+                    },
+                    {
+                      "code": "MY",
+                      "amount": 2.95
+                    },
+                    {
+                      "code": "YR",
+                      "amount": 0.56
+                    },
+                    {
+                      "code": "OB",
+                      "amount": 0.46
+                    }
+                  ],
+                  "total_tax": 14.74,
+                  "TotalTax": "14.74"
+                },
+                "pax_count": 1
+              },
+              "fare_basis": "HSG1M",
+              "booking_class": "Y",
+              "seats_remaining": 4,
+              "avl_seats": 4,
+              "seatAvailability": 4,
+              "validating_carrier": "MH",
+              "last_ticketing_date": "2024-12-17T17:30:00+08:00",
+              "baggage": {
+                "checked": {
+                  "pieces": 1,
+                  "weight_kg": 20,
+                  "Weight": "20KG"
+                },
+                "cabin_baggage": {
+                  "pieces": 1,
+                  "weight_kg": 7
+                }
+              },
+              "refundable": false,
+              "isRefundable": false
+            },
+            {
+              "offer_id": "ddd0a533c1eac031",
+              "offerId": "ddd0a533c1eac031",
+              "segments": {
+                "segment_list": [
+                  {
+                    "leg_data": [
+                      {
+                        "departure_info": {
+                          "airport": {
+                            "code": "KUL",
+                            "terminal": "2"
+                          },
+                          "scheduled_time": 1734659100,
+                          "dt": "20/12/2024 09:45"
+                        },
+                        "arrival_info": {
+                          "airport": {
+                            "code": "SIN",
+                            "terminal": "3"
+                          },
+                          "scheduled_time": "20241220104700",
+                          "arr_date": "2024-12-20"
+                        },
+                        "carrier": {
+                          "operating": "MH",
+                          "marketing": "MH",
+                          "mktg_carrier": "MH",
+                          "flight_no": "314",
+                          "number": "MH314"
+                        },
+                        "equipment": {
+                          "aircraft_code": "359",
+                          "type": "359"
+                        },
+                        "cabin": "Y",
+                        "cabin_class": "Y",
+                        "duration_minutes": 62,
+                        "elapsed_time": "1h 02m"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "stops": 0,
+              "num_stops": 0,
+              "total_journey_time": 62,
+              "total_journey": "1h 02m",
+              "pricing": {
+                "currency": "MYR",
+                "CurrencyCode": "MYR",
+                "total": 157.85,
+                "total_amount": "157.85",
+                "totalAmountDecimal": 157.85,
+                "per_pax": 157.85,
+                "base_fare": 139.49,
+                "BaseFare": 139.49,
+                "taxes_fees": {
+                  "tax_breakdown": [
+                    {
+                      "code": "D8",
+                      "amount": 6.22
+                    },
+                    {
+                      "code": "UB",
+                      "amount": 12.14
+                    }
+                  ],
+                  "total_tax": 18.36,
+                  "TotalTax": "18.36"
+                },
+                "pax_count": 1
+              },
+              "fare_basis": "YFL",
+              "booking_class": "Y",
+              "seats_remaining": 7,
+              "avl_seats": 7,
+              "seatAvailability": 7,
+              "validating_carrier": "MH",
+              "last_ticketing_date": 1734140700,
+              "baggage": {
+                "checked": {
+                  "pieces": 1,
+                  "weight_kg": 20,
+                  "Weight": "20KG"
+                },
+                "cabin_baggage": {
+                  "pieces": 1,
+                  "weight_kg": 7
+                }
+              },
+              "refundable": false,
+              "isRefundable": false
+            },
+            {
+              "offer_id": "5faf4e61444ae697",
+              "offerId": "5faf4e61444ae697",
+              "segments": {
+                "segment_list": [
+                  {
+                    "leg_data": [
+                      {
+                        "departure_info": {
+                          "airport": {
+                            "code": "KUL",
+                            "terminal": "2"
+                          },
+                          "scheduled_time": "20241220174500",
+                          "dt": "20/12/2024 17:45"
+                        },
+                        "arrival_info": {
+                          "airport": {
+                            "code": "SIN",
+                            "terminal": "1"
+                          },
+                          "scheduled_time": 1734690780,
+                          "arr_date": "2024-12-20"
+                        },
+                        "carrier": {
+                          "operating": "AK",
+                          "marketing": "AK",
+                          "mktg_carrier": "AK",
+                          "flight_no": "303",
+                          "number": "AK303"
+                        },
+                        "equipment": {
+                          "aircraft_code": "321",
+                          "type": "321"
+                        },
+                        "cabin": "Y",
+                        "cabin_class": "Y",
+                        "duration_minutes": 48,
+                        "elapsed_time": "0h 48m"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "stops": 0,
+              "num_stops": 0,
+              "total_journey_time": 48,
+              "total_journey": "0h 48m",
+              "pricing": {
+                "currency": "MYR",
+                "CurrencyCode": "MYR",
+                "total": 45.69,
+                "total_amount": "45.69",
+                "totalAmountDecimal": 45.69,
+                "per_pax": 45.69,
+                "base_fare": 41.87,
+                "BaseFare": 41.87,
+                "taxes_fees": {
+                  "tax_breakdown": [
+                    {
+                      "code": "YQ",
+                      "amount": 4.59
+                    },
+                    {
+                      "code": "OB",
+                      "amount": 1.96
+                    },
+                    {
+                      "code": "D8",
+                      "amount": -2.73
+                    }
+                  ],
+                  "total_tax": 3.82,
+                  "TotalTax": "3.82"
+                },
+                "pax_count": 1
+              },
+              "fare_basis": "MRT",
+              "booking_class": "Y",
+              "seats_remaining": 5,
+              "avl_seats": 5,
+              "seatAvailability": 5,
+              "validating_carrier": "AK",
+              "last_ticketing_date": "17-Dec-2024 05:45 PM",
+              "baggage": {
+                "checked": {
+                  "pieces": 1,
+                  "weight_kg": 20,
+                  "Weight": "20KG"
+                },
+                "cabin_baggage": {
+                  "pieces": 1,
+                  "weight_kg": 7
+                }
+              },
+              "refundable": false,
+              "isRefundable": false
+            },
+            {
+              "offer_id": "4a820db7c5a32fa9",
+              "offerId": "4a820db7c5a32fa9",
+              "segments": {
+                "segment_list": [
+                  {
+                    "leg_data": [
+                      {
+                        "departure_info": {
+                          "airport": {
+                            "code": "KUL",
+                            "terminal": "2"
+                          },
+                          "scheduled_time": "2024-12-20T21:55:00+08:00",
+                          "dt": "20/12/2024 21:55"
+                        },
+                        "arrival_info": {
+                          "airport": {
+                            "code": "SIN",
+                            "terminal": "2"
+                          },
+                          "scheduled_time": "2024-12-20T23:06:00+08:00",
+                          "arr_date": "2024-12-20"
+                        },
+                        "carrier": {
+                          "operating": "AK",
+                          "marketing": "AK",
+                          "mktg_carrier": "AK",
+                          "flight_no": "903",
+                          "number": "AK903"
+                        },
+                        "equipment": {
+                          "aircraft_code": "321",
+                          "type": "321"
+                        },
+                        "cabin": "Y",
+                        "cabin_class": "Y",
+                        "duration_minutes": 71,
+                        "elapsed_time": "1h 11m"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "stops": 0,
+              "num_stops": 0,
+              "total_journey_time": 71,
+              "total_journey": "1h 11m",
+              "pricing": {
+                "currency": "MYR",
+                "CurrencyCode": "MYR",
+                "total": 58,
+                "total_amount": "58.0",
+                "totalAmountDecimal": 58,
+                "per_pax": 58,
+                "base_fare": 53.51,
+                "BaseFare": 53.51,
+                "taxes_fees": {
+                  "tax_breakdown": [
+                    {
+                      "code": "XT",
+                      "amount": 2.31
+                    },
+                    {
+                      "code": "SG",
+                      "amount": 3.83
+                    },
+                    {
+                      "code": "UB",
+                      "amount": 2.28
+                    },
+                    {
+                      "code": "OB",
+                      "amount": -3.93
+                    }
+                  ],
+                  "total_tax": 4.49,
+                  "TotalTax": "4.49"
+                },
+                "pax_count": 1
+              },
+              "fare_basis": "BFL",
+              "booking_class": "Y",
+              "seats_remaining": 1,
+              "avl_seats": 1,
+              "seatAvailability": 1,
+              "validating_carrier": "AK",
+              "last_ticketing_date": 1734530100,
+              "baggage": {
+                "checked": {
+                  "pieces": 1,
+                  "weight_kg": 20,
+                  "Weight": "20KG"
+                },
+                "cabin_baggage": {
+                  "pieces": 1,
+                  "weight_kg": 7
+                }
+              },
+              "refundable": false,
+              "isRefundable": false
+            },
+            {
+              "offer_id": "0dbb2e8bc8031358",
+              "offerId": "0dbb2e8bc8031358",
+              "segments": {
+                "segment_list": [
+                  {
+                    "leg_data": [
+                      {
+                        "departure_info": {
+                          "airport": {
+                            "code": "KUL",
+                            "terminal": "2"
+                          },
+                          "scheduled_time": "2024-12-20T22:15:00+08:00",
+                          "dt": "20/12/2024 22:15"
+                        },
+                        "arrival_info": {
+                          "airport": {
+                            "code": "SIN",
+                            "terminal": "1"
+                          },
+                          "scheduled_time": "20/12/2024 23:20",
+                          "arr_date": "2024-12-20"
+                        },
+                        "carrier": {
+                          "operating": "AK",
+                          "marketing": "AK",
+                          "mktg_carrier": "AK",
+                          "flight_no": "999",
+                          "number": "AK999"
+                        },
+                        "equipment": {
+                          "aircraft_code": "320",
+                          "type": "320"
+                        },
+                        "cabin": "Y",
+                        "cabin_class": "Y",
+                        "duration_minutes": 65,
+                        "elapsed_time": "1h 05m"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "stops": 0,
+              "num_stops": 0,
+              "total_journey_time": 65,
+              "total_journey": "1h 05m",
+              "pricing": {
+                "currency": "MYR",
+                "CurrencyCode": "MYR",
+                "total": 57.55,
+                "total_amount": "57.55",
+                "totalAmountDecimal": 57.55,
+                "per_pax": 57.55,
+                "base_fare": 50.11,
+                "BaseFare": 50.11,
+                "taxes_fees": {
+                  "tax_breakdown": [
+                    {
+                      "code": "UB",
+                      "amount": 4.63
+                    },
+                    {
+                      "code": "XT",
+                      "amount": 2.77
+                    },
+                    {
+                      "code": "GB",
+                      "amount": 0.04
+                    }
+                  ],
+                  "total_tax": 7.44,
+                  "TotalTax": "7.44"
+                },
+                "pax_count": 1
+              },
+              "fare_basis": "YSG",
+              "booking_class": "Y",
+              "seats_remaining": 2,
+              "avl_seats": 2,
+              "seatAvailability": 2,
+              "validating_carrier": "AK",
+              "last_ticketing_date": "17/12/2024 22:15",
+              "baggage": {
+                "checked": {
+                  "pieces": 1,
+                  "weight_kg": 20,
+                  "Weight": "20KG"
+                },
+                "cabin_baggage": {
+                  "pieces": 1,
+                  "weight_kg": 7
+                }
+              },
+              "refundable": false,
+              "isRefundable": false
+            },
+            {
+              "offer_id": "2344fe9e1b4bef77",
+              "offerId": "2344fe9e1b4bef77",
+              "segments": {
+                "segment_list": [
+                  {
+                    "leg_data": [
+                      {
+                        "departure_info": {
+                          "airport": {
+                            "code": "KUL",
+                            "terminal": "3"
+                          },
+                          "scheduled_time": "20/12/2024 13:10",
+                          "dt": "20/12/2024 13:10"
+                        },
+                        "arrival_info": {
+                          "airport": {
+                            "code": "SIN",
+                            "terminal": "2"
+                          },
+                          "scheduled_time": "20-Dec-2024 02:03 PM",
+                          "arr_date": "2024-12-20"
+                        },
+                        "carrier": {
+                          "operating": "SQ",
+                          "marketing": "SQ",
+                          "mktg_carrier": "SQ",
+                          "flight_no": "135",
+                          "number": "SQ135"
+                        },
+                        "equipment": {
+                          "aircraft_code": "359",
+                          "type": "359"
+                        },
+                        "cabin": "Y",
+                        "cabin_class": "Y",
+                        "duration_minutes": 53,
+                        "elapsed_time": "0h 53m"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "stops": 0,
+              "num_stops": 0,
+              "total_journey_time": 53,
+              "total_journey": "0h 53m",
+              "pricing": {
+                "currency": "MYR",
+                "CurrencyCode": "MYR",
+                "total": 128.87,
+                "total_amount": "128.87",
+                "totalAmountDecimal": 128.87,
+                "per_pax": 128.87,
+                "base_fare": 118.75,
+                "BaseFare": 118.75,
+                "taxes_fees": {
+                  "tax_breakdown": [
+                    {
+                      "code": "YQ",
+                      "amount": 5.01
+                    },
+                    {
+                      "code": "YR",
+                      "amount": 3.32
+                    },
+                    {
+                      "code": "UB",
+                      "amount": 4.83
+                    },
+                    {
+                      "code": "GB",
+                      "amount": -0.44
+                    },
+                    {
+                      "code": "XT",
+                      "amount": -2.6
+                    }
+                  ],
+                  "total_tax": 10.12,
+                  "TotalTax": "10.12"
+                },
+                "pax_count": 1
+              },
+              "fare_basis": "YAP",
+              "booking_class": "Y",
+              "seats_remaining": 7,
+              "avl_seats": 7,
+              "seatAvailability": 7,
+              "validating_carrier": "SQ",
+              "last_ticketing_date": "14-Dec-2024 01:10 PM",
+              "baggage": {
+                "checked": {
+                  "pieces": 1,
+                  "weight_kg": 20,
+                  "Weight": "20KG"
+                },
+                "cabin_baggage": {
+                  "pieces": 1,
+                  "weight_kg": 7
+                }
+              },
+              "refundable": false,
+              "isRefundable": false
+            },
+            {
+              "offer_id": "9aca3b2f714f99b3",
+              "offerId": "9aca3b2f714f99b3",
+              "segments": {
+                "segment_list": [
+                  {
+                    "leg_data": [
+                      {
+                        "departure_info": {
+                          "airport": {
+                            "code": "KUL",
+                            "terminal": "3"
+                          },
+                          "scheduled_time": "20/12/2024 17:55",
+                          "dt": "20/12/2024 17:55"
+                        },
+                        "arrival_info": {
+                          "airport": {
+                            "code": "SIN",
+                            "terminal": "3"
+                          },
+                          "scheduled_time": "2024-12-20T18:49:00+08:00",
+                          "arr_date": "2024-12-20"
+                        },
+                        "carrier": {
+                          "operating": "TR",
+                          "marketing": "TR",
+                          "mktg_carrier": "TR",
+                          "flight_no": "491",
+                          "number": "TR491"
+                        },
+                        "equipment": {
+                          "aircraft_code": "789",
+                          "type": "789"
+                        },
+                        "cabin": "Y",
+                        "cabin_class": "Y",
+                        "duration_minutes": 54,
+                        "elapsed_time": "0h 54m"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "stops": 0,
+              "num_stops": 0,
+              "total_journey_time": 54,
+              "total_journey": "0h 54m",
+              "pricing": {
+                "currency": "MYR",
+                "CurrencyCode": "MYR",
+                "total": 71.65,
+                "total_amount": "71.65",
+                "totalAmountDecimal": 71.65,
+                "per_pax": 71.65,
+                "base_fare": 62.13,
+                "BaseFare": 62.13,
+                "taxes_fees": {
+                  "tax_breakdown": [
+                    {
+                      "code": "GB",
+                      "amount": 4.76
+                    },
+                    {
+                      "code": "XT",
+                      "amount": 4.76
+                    }
+                  ],
+                  "total_tax": 9.52,
+                  "TotalTax": "9.52"
+                },
+                "pax_count": 1
+              },
+              "fare_basis": "VRT3M",
+              "booking_class": "Y",
+              "seats_remaining": 4,
+              "avl_seats": 4,
+              "seatAvailability": 4,
+              "validating_carrier": "TR",
+              "last_ticketing_date": 1734515700,
+              "baggage": {
+                "checked": {
+                  "pieces": 1,
+                  "weight_kg": 20,
+                  "Weight": "20KG"
+                },
+                "cabin_baggage": {
+                  "pieces": 1,
+                  "weight_kg": 7
+                }
+              },
+              "refundable": false,
+              "isRefundable": false
+            },
+            {
+              "offer_id": "87dca41a460347b1",
+              "offerId": "87dca41a460347b1",
+              "segments": {
+                "segment_list": [
+                  {
+                    "leg_data": [
+                      {
+                        "departure_info": {
+                          "airport": {
+                            "code": "KUL",
+                            "terminal": "3"
+                          },
+                          "scheduled_time": "20/12/2024 17:40",
+                          "dt": "20/12/2024 17:40"
+                        },
+                        "arrival_info": {
+                          "airport": {
+                            "code": "SIN",
+                            "terminal": "1"
+                          },
+                          "scheduled_time": "20/12/2024 18:19",
+                          "arr_date": "2024-12-20"
+                        },
+                        "carrier": {
+                          "operating": "3K",
+                          "marketing": "3K",
+                          "mktg_carrier": "3K",
+                          "flight_no": "874",
+                          "number": "3K874"
+                        },
+                        "equipment": {
+                          "aircraft_code": "320",
+                          "type": "320"
+                        },
+                        "cabin": "Y",
+                        "cabin_class": "Y",
+                        "duration_minutes": 39,
+                        "elapsed_time": "0h 39m"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "stops": 0,
+              "num_stops": 0,
+              "total_journey_time": 39,
+              "total_journey": "0h 39m",
+              "pricing": {
+                "currency": "MYR",
+                "CurrencyCode": "MYR",
+                "total": 50.26,
+                "total_amount": "50.26",
+                "totalAmountDecimal": 50.26,
+                "per_pax": 50.26,
+                "base_fare": 42.63,
+                "BaseFare": 42.63,
+                "taxes_fees": {
+                  "tax_breakdown": [
+                    {
+                      "code": "XT",
+                      "amount": 3.96
+                    },
+                    {
+                      "code": "YQ",
+                      "amount": 4.39
+                    },
+                    {
+                      "code": "GB",
+                      "amount": 4.83
+                    },
+                    {
+                      "code": "UB",
+                      "amount": -5.55
+                    }
+                  ],
+                  "total_tax": 7.63,
+                  "TotalTax": "7.63"
+                },
+                "pax_count": 1
+              },
+              "fare_basis": "VAP",
+              "booking_class": "Y",
+              "seats_remaining": 2,
+              "avl_seats": 2,
+              "seatAvailability": 2,
+              "validating_carrier": "3K",
+              "last_ticketing_date": "13-Dec-2024 05:40 PM",
+              "baggage": {
+                "checked": {
+                  "pieces": 1,
+                  "weight_kg": 20,
+                  "Weight": "20KG"
+                },
+                "cabin_baggage": {
+                  "pieces": 1,
+                  "weight_kg": 7
+                }
+              },
+              "refundable": false,
+              "isRefundable": false
+            },
+            {
+              "offer_id": "5de81265ff4325a6",
+              "offerId": "5de81265ff4325a6",
+              "segments": {
+                "segment_list": [
+                  {
+                    "leg_data": [
+                      {
+                        "departure_info": {
+                          "airport": {
+                            "code": "KUL",
+                            "terminal": "3"
+                          },
+                          "scheduled_time": "20/12/2024 08:40",
+                          "dt": "20/12/2024 08:40"
+                        },
+                        "arrival_info": {
+                          "airport": {
+                            "code": "SIN",
+                            "terminal": "3"
+                          },
+                          "scheduled_time": "20-Dec-2024 09:48 AM",
+                          "arr_date": "2024-12-20"
+                        },
+                        "carrier": {
+                          "operating": "3K",
+                          "marketing": "3K",
+                          "mktg_carrier": "3K",
+                          "flight_no": "260",
+                          "number": "3K260"
+                        },
+                        "equipment": {
+                          "aircraft_code": "320",
+                          "type": "320"
+                        },
+                        "cabin": "Y",
+                        "cabin_class": "Y",
+                        "duration_minutes": 68,
+                        "elapsed_time": "1h 08m"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "stops": 0,
+              "num_stops": 0,
+              "total_journey_time": 68,
+              "total_journey": "1h 08m",
+              "pricing": {
+                "currency": "MYR",
+                "CurrencyCode": "MYR",
+                "total": 46.74,
+                "total_amount": "46.74",
+                "totalAmountDecimal": 46.74,
+                "per_pax": 46.74,
+                "base_fare": 42.35,
+                "BaseFare": 42.35,
+                "taxes_fees": {
+                  "tax_breakdown": [
+                    {
+                      "code": "OB",
+                      "amount": 3.46
+                    },
+                    {
+                      "code": "SG",
+                      "amount": 3.17
+                    },
+                    {
+                      "code": "YQ",
+                      "amount": -2.24
+                    }
+                  ],
+                  "total_tax": 4.39,
+                  "TotalTax": "4.39"
+                },
+                "pax_count": 1
+              },
+              "fare_basis": "HSG",
+              "booking_class": "Y",
+              "seats_remaining": 9,
+              "avl_seats": 9,
+              "seatAvailability": 9,
+              "validating_carrier": "3K",
+              "last_ticketing_date": 1734482400,
+              "baggage": {
+                "checked": {
+                  "pieces": 1,
+                  "weight_kg": 20,
+                  "Weight": "20KG"
+                },
+                "cabin_baggage": {
+                  "pieces": 1,
+                  "weight_kg": 7
+                }
+              },
+              "refundable": false,
+              "isRefundable": false
+            },
+            {
+              "offer_id": "672f30ed0ed9d9a2",
+              "offerId": "672f30ed0ed9d9a2",
+              "segments": {
+                "segment_list": [
+                  {
+                    "leg_data": [
+                      {
+                        "departure_info": {
+                          "airport": {
+                            "code": "KUL",
+                            "terminal": "2"
+                          },
+                          "scheduled_time": "20-Dec-2024 11:10 AM",
+                          "dt": "20/12/2024 11:10"
+                        },
+                        "arrival_info": {
+                          "airport": {
+                            "code": "SIN",
+                            "terminal": "3"
+                          },
+                          "scheduled_time": "20-Dec-2024 12:00 PM",
+                          "arr_date": "2024-12-20"
+                        },
+                        "carrier": {
+                          "operating": "3K",
+                          "marketing": "3K",
+                          "mktg_carrier": "3K",
+                          "flight_no": "165",
+                          "number": "3K165"
+                        },
+                        "equipment": {
+                          "aircraft_code": "320",
+                          "type": "320"
+                        },
+                        "cabin": "Y",
+                        "cabin_class": "Y",
+                        "duration_minutes": 50,
+                        "elapsed_time": "0h 50m"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "stops": 0,
+              "num_stops": 0,
+              "total_journey_time": 50,
+              "total_journey": "0h 50m",
+              "pricing": {
+                "currency": "MYR",
+                "CurrencyCode": "MYR",
+                "total": 50.44,
+                "total_amount": "50.44",
+                "totalAmountDecimal": 50.44,
+                "per_pax": 50.44,
+                "base_fare": 46.27,
+                "BaseFare": 46.27,
+                "taxes_fees": {
+                  "tax_breakdown": [
+                    {
+                      "code": "SG",
+                      "amount": 3.46
+                    },
+                    {
+                      "code": "D8",
+                      "amount": 0.71
+                    }
+                  ],
+                  "total_tax": 4.17,
+                  "TotalTax": "4.17"
+                },
+                "pax_count": 1
+              },
+              "fare_basis": "BFL3M",
+              "booking_class": "Y",
+              "seats_remaining": 6,
+              "avl_seats": 6,
+              "seatAvailability": 6,
+              "validating_carrier": "3K",
+              "last_ticketing_date": "2024-12-14T11:10:00+08:00",
+              "baggage": {
+                "checked": {
+                  "pieces": 1,
+                  "weight_kg": 20,
+                  "Weight": "20KG"
+                },
+                "cabin_baggage": {
+                  "pieces": 1,
+                  "weight_kg": 7
+                }
+              },
+              "refundable": false,
+              "isRefundable": false
+            },
+            {
+              "offer_id": "a2ea3a4b52690756",
+              "offerId": "a2ea3a4b52690756",
+              "segments": {
+                "segment_list": [
+                  {
+                    "leg_data": [
+                      {
+                        "departure_info": {
+                          "airport": {
+                            "code": "KUL",
+                            "terminal": "2"
+                          },
+                          "scheduled_time": "20/12/2024 05:05",
+                          "dt": "20/12/2024 05:05"
+                        },
+                        "arrival_info": {
+                          "airport": {
+                            "code": "BKK",
+                            "terminal": "3"
+                          },
+                          "scheduled_time": 1734648780,
+                          "arr_date": "2024-12-20"
+                        },
+                        "carrier": {
+                          "operating": "MH",
+                          "marketing": "MH",
+                          "mktg_carrier": "MH",
+                          "flight_no": "729",
+                          "number": "MH729"
+                        },
+                        "equipment": {
+                          "aircraft_code": "333",
+                          "type": "333"
+                        },
+                        "cabin": "Y",
+                        "cabin_class": "Y",
+                        "duration_minutes": 108,
+                        "elapsed_time": "1h 48m"
+                      }
+                    ],
+                    "connection_info": {
+                      "layover_min": 100,
+                      "layover_duration": "1h 40m",
+                      "change_airport": false
+                    }
+                  },
+                  {
+                    "leg_data": [
+                      {
+                        "departure_info": {
+                          "airport": {
+                            "code": "BKK",
+                            "terminal": "3"
+                          },
+                          "scheduled_time": "2024-12-20T08:33:00+08:00",
+                          "dt": "20/12/2024 08:33"
+                        },
+                        "arrival_info": {
+                          "airport": {
+                            "code": "SIN",
+                            "terminal": "1"
+                          },
+                          "scheduled_time": "2024-12-20T11:08:00+08:00",
+                          "arr_date": "2024-12-20"
+                        },
+                        "carrier": {
+                          "operating": "MH",
+                          "marketing": "MH",
+                          "mktg_carrier": "MH",
+                          "flight_no": "282",
+                          "number": "MH282"
+                        },
+                        "equipment": {
+                          "aircraft_code": "738",
+                          "type": "738"
+                        },
+                        "cabin": "Y",
+                        "cabin_class": "Y",
+                        "duration_minutes": 155,
+                        "elapsed_time": "2h 35m"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "stops": 1,
+              "num_stops": 1,
+              "total_journey_time": 363,
+              "total_journey": "6h 03m",
+              "pricing": {
+                "currency": "MYR",
+                "CurrencyCode": "MYR",
+                "total": 106.83,
+                "total_amount": "106.83",
+                "totalAmountDecimal": 106.83,
+                "per_pax": 106.83,
+                "base_fare": 93.52,
+                "BaseFare": 93.52,
+                "taxes_fees": {
+                  "tax_breakdown": [
+                    {
+                      "code": "YR",
+                      "amount": 5.63
+                    },
+                    {
+                      "code": "YQ",
+                      "amount": 4.84
+                    },
+                    {
+                      "code": "OB",
+                      "amount": 2.84
+                    }
+                  ],
+                  "total_tax": 13.31,
+                  "TotalTax": "13.31"
+                },
+                "pax_count": 1
+              },
+              "fare_basis": "VRT",
+              "booking_class": "Y",
+              "seats_remaining": 5,
+              "avl_seats": 5,
+              "seatAvailability": 5,
+              "validating_carrier": "MH",
+              "last_ticketing_date": "20241218050500",
+              "baggage": {
+                "checked": {
+                  "pieces": 1,
+                  "weight_kg": 20,
+                  "Weight": "20KG"
+                },
+                "cabin_baggage": {
+                  "pieces": 1,
+                  "weight_kg": 7
+                }
+              },
+              "refundable": false,
+              "isRefundable": false
+            },
+            {
+              "offer_id": "d8fa1fe0490a4bdd",
+              "offerId": "d8fa1fe0490a4bdd",
+              "segments": {
+                "segment_list": [
+                  {
+                    "leg_data": [
+                      {
+                        "departure_info": {
+                          "airport": {
+                            "code": "KUL",
+                            "terminal": "1"
+                          },
+                          "scheduled_time": "20/12/2024 21:15",
+                          "dt": "20/12/2024 21:15"
+                        },
+                        "arrival_info": {
+                          "airport": {
+                            "code": "HKG",
+                            "terminal": "1"
+                          },
+                          "scheduled_time": 1734712920,
+                          "arr_date": "2024-12-21"
+                        },
+                        "carrier": {
+                          "operating": "MH",
+                          "marketing": "MH",
+                          "mktg_carrier": "MH",
+                          "flight_no": "427",
+                          "number": "MH427"
+                        },
+                        "equipment": {
+                          "aircraft_code": "738",
+                          "type": "738"
+                        },
+                        "cabin": "Y",
+                        "cabin_class": "Y",
+                        "duration_minutes": 207,
+                        "elapsed_time": "3h 27m"
+                      }
+                    ],
+                    "connection_info": {
+                      "layover_min": 117,
+                      "layover_duration": "1h 57m",
+                      "change_airport": false
+                    }
+                  },
+                  {
+                    "leg_data": [
+                      {
+                        "departure_info": {
+                          "airport": {
+                            "code": "HKG",
+                            "terminal": "2"
+                          },
+                          "scheduled_time": "21-Dec-2024 02:39 AM",
+                          "dt": "21/12/2024 02:39"
+                        },
+                        "arrival_info": {
+                          "airport": {
+                            "code": "SIN",
+                            "terminal": "2"
+                          },
+                          "scheduled_time": "21-Dec-2024 06:17 AM",
+                          "arr_date": "2024-12-21"
+                        },
+                        "carrier": {
+                          "operating": "MH",
+                          "marketing": "MH",
+                          "mktg_carrier": "MH",
+                          "flight_no": "437",
+                          "number": "MH437"
+                        },
+                        "equipment": {
+                          "aircraft_code": "333",
+                          "type": "333"
+                        },
+                        "cabin": "Y",
+                        "cabin_class": "Y",
+                        "duration_minutes": 218,
+                        "elapsed_time": "3h 38m"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "stops": 1,
+              "num_stops": 1,
+              "total_journey_time": 542,
+              "total_journey": "9h 02m",
+              "pricing": {
+                "currency": "MYR",
+                "CurrencyCode": "MYR",
+                "total": 104.3,
+                "total_amount": "104.3",
+                "totalAmountDecimal": 104.3,
+                "per_pax": 104.3,
+                "base_fare": 92.78,
+                "BaseFare": 92.78,
+                "taxes_fees": {
+                  "tax_breakdown": [
+                    {
+                      "code": "XT",
+                      "amount": 5.15
+                    },
+                    {
+                      "code": "OB",
+                      "amount": 4.92
+                    },
+                    {
+                      "code": "MY",
+                      "amount": 1.45
+                    }
+                  ],
+                  "total_tax": 11.52,
+                  "TotalTax": "11.52"
+                },
+                "pax_count": 1
+              },
+              "fare_basis": "HSG3M",
+              "booking_class": "Y",
+              "seats_remaining": 1,
+              "avl_seats": 1,
+              "seatAvailability": 1,
+              "validating_carrier": "MH",
+              "last_ticketing_date": "15/12/2024 21:15",
+              "baggage": {
+                "checked": {
+                  "pieces": 1,
+                  "weight_kg": 20,
+                  "Weight": "20KG"
+                },
+                "cabin_baggage": {
+                  "pieces": 1,
+                  "weight_kg": 7
+                }
+              },
+              "refundable": false,
+              "isRefundable": false
+            }
+          ],
+          "result_count": 13,
+          "ResultCount": 13
+        },
+        "inbound": {
+          "results": [
+            {
+              "offer_id": "94875bd42b3cc558",
+              "offerId": "94875bd42b3cc558",
+              "segments": {
+                "segment_list": [
+                  {
+                    "leg_data": [
+                      {
+                        "departure_info": {
+                          "airport": {
+                            "code": "SIN",
+                            "terminal": "1"
+                          },
+                          "scheduled_time": 1735292100,
+                          "dt": "27/12/2024 17:35"
+                        },
+                        "arrival_info": {
+                          "airport": {
+                            "code": "KUL",
+                            "terminal": "2"
+                          },
+                          "scheduled_time": "27-Dec-2024 06:46 PM",
+                          "arr_date": "2024-12-27"
+                        },
+                        "carrier": {
+                          "operating": "MH",
+                          "marketing": "MH",
+                          "mktg_carrier": "MH",
+                          "flight_no": "757",
+                          "number": "MH757"
+                        },
+                        "equipment": {
+                          "aircraft_code": "359",
+                          "type": "359"
+                        },
+                        "cabin": "Y",
+                        "cabin_class": "Y",
+                        "duration_minutes": 71,
+                        "elapsed_time": "1h 11m"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "stops": 0,
+              "num_stops": 0,
+              "total_journey_time": 71,
+              "total_journey": "1h 11m",
+              "pricing": {
+                "currency": "MYR",
+                "CurrencyCode": "MYR",
+                "total": 149.04,
+                "total_amount": "149.04",
+                "totalAmountDecimal": 149.04,
+                "per_pax": 149.04,
+                "base_fare": 133.96,
+                "BaseFare": 133.96,
+                "taxes_fees": {
+                  "tax_breakdown": [
+                    {
+                      "code": "D8",
+                      "amount": 5.63
+                    },
+                    {
+                      "code": "SG",
+                      "amount": 4.73
+                    },
+                    {
+                      "code": "GB",
+                      "amount": 4.72
+                    }
+                  ],
+                  "total_tax": 15.08,
+                  "TotalTax": "15.08"
+                },
+                "pax_count": 1
+              },
+              "fare_basis": "VOW",
+              "booking_class": "Y",
+              "seats_remaining": 3,
+              "avl_seats": 3,
+              "seatAvailability": 3,
+              "validating_carrier": "MH",
+              "last_ticketing_date": "26/12/2024 17:35",
+              "baggage": {
+                "checked": {
+                  "pieces": 1,
+                  "weight_kg": 20,
+                  "Weight": "20KG"
+                },
+                "cabin_baggage": {
+                  "pieces": 1,
+                  "weight_kg": 7
+                }
+              },
+              "refundable": false,
+              "isRefundable": false
+            },
+            {
+              "offer_id": "0e81da3093430654",
+              "offerId": "0e81da3093430654",
+              "segments": {
+                "segment_list": [
+                  {
+                    "leg_data": [
+                      {
+                        "departure_info": {
+                          "airport": {
+                            "code": "SIN",
+                            "terminal": "3"
+                          },
+                          "scheduled_time": 1735266300,
+                          "dt": "27/12/2024 10:25"
+                        },
+                        "arrival_info": {
+                          "airport": {
+                            "code": "KUL",
+                            "terminal": "2"
+                          },
+                          "scheduled_time": "27/12/2024 11:09",
+                          "arr_date": "2024-12-27"
+                        },
+                        "carrier": {
+                          "operating": "MH",
+                          "marketing": "MH",
+                          "mktg_carrier": "MH",
+                          "flight_no": "721",
+                          "number": "MH721"
+                        },
+                        "equipment": {
+                          "aircraft_code": "359",
+                          "type": "359"
+                        },
+                        "cabin": "Y",
+                        "cabin_class": "Y",
+                        "duration_minutes": 44,
+                        "elapsed_time": "0h 44m"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "stops": 0,
+              "num_stops": 0,
+              "total_journey_time": 44,
+              "total_journey": "0h 44m",
+              "pricing": {
+                "currency": "MYR",
+                "CurrencyCode": "MYR",
+                "total": 156.18,
+                "total_amount": "156.18",
+                "totalAmountDecimal": 156.18,
+                "per_pax": 156.18,
+                "base_fare": 133.15,
+                "BaseFare": 133.15,
+                "taxes_fees": {
+                  "tax_breakdown": [
+                    {
+                      "code": "XT",
+                      "amount": 10.92
+                    },
+                    {
+                      "code": "SG",
+                      "amount": 5.27
+                    },
+                    {
+                      "code": "YR",
+                      "amount": 4.09
+                    },
+                    {
+                      "code": "D8",
+                      "amount": 2.75
+                    }
+                  ],
+                  "total_tax": 23.03,
+                  "TotalTax": "23.03"
+                },
+                "pax_count": 1
+              },
+              "fare_basis": "MOW1M",
+              "booking_class": "Y",
+              "seats_remaining": 2,
+              "avl_seats": 2,
+              "seatAvailability": 2,
+              "validating_carrier": "MH",
+              "last_ticketing_date": "20241224102500",
+              "baggage": {
+                "checked": {
+                  "pieces": 1,
+                  "weight_kg": 20,
+                  "Weight": "20KG"
+                },
+                "cabin_baggage": {
+                  "pieces": 1,
+                  "weight_kg": 7
+                }
+              },
+              "refundable": false,
+              "isRefundable": false
+            },
+            {
+              "offer_id": "642188314fb4772f",
+              "offerId": "642188314fb4772f",
+              "segments": {
+                "segment_list": [
+                  {
+                    "leg_data": [
+                      {
+                        "departure_info": {
+                          "airport": {
+                            "code": "SIN",
+                            "terminal": "3"
+                          },
+                          "scheduled_time": "2024-12-27T09:55:00+08:00",
+                          "dt": "27/12/2024 09:55"
+                        },
+                        "arrival_info": {
+                          "airport": {
+                            "code": "KUL",
+                            "terminal": "2"
+                          },
+                          "scheduled_time": 1735267680,
+                          "arr_date": "2024-12-27"
+                        },
+                        "carrier": {
+                          "operating": "AK",
+                          "marketing": "AK",
+                          "mktg_carrier": "AK",
+                          "flight_no": "583",
+                          "number": "AK583"
+                        },
+                        "equipment": {
+                          "aircraft_code": "320",
+                          "type": "320"
+                        },
+                        "cabin": "Y",
+                        "cabin_class": "Y",
+                        "duration_minutes": 53,
+                        "elapsed_time": "0h 53m"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "stops": 0,
+              "num_stops": 0,
+              "total_journey_time": 53,
+              "total_journey": "0h 53m",
+              "pricing": {
+                "currency": "MYR",
+                "CurrencyCode": "MYR",
+                "total": 77.32,
+                "total_amount": "77.32",
+                "totalAmountDecimal": 77.32,
+                "per_pax": 77.32,
+                "base_fare": 67.24,
+                "BaseFare": 67.24,
+                "taxes_fees": {
+                  "tax_breakdown": [
+                    {
+                      "code": "YQ",
+                      "amount": 5.01
+                    },
+                    {
+                      "code": "D8",
+                      "amount": 4.83
+                    },
+                    {
+                      "code": "UB",
+                      "amount": 4.99
+                    },
+                    {
+                      "code": "MY",
+                      "amount": -4.75
+                    }
+                  ],
+                  "total_tax": 10.08,
+                  "TotalTax": "10.08"
+                },
+                "pax_count": 1
+              },
+              "fare_basis": "YAP1M",
+              "booking_class": "Y",
+              "seats_remaining": 2,
+              "avl_seats": 2,
+              "seatAvailability": 2,
+              "validating_carrier": "AK",
+              "last_ticketing_date": 1734746100,
+              "baggage": {
+                "checked": {
+                  "pieces": 1,
+                  "weight_kg": 20,
+                  "Weight": "20KG"
+                },
+                "cabin_baggage": {
+                  "pieces": 1,
+                  "weight_kg": 7
+                }
+              },
+              "refundable": false,
+              "isRefundable": false
+            },
+            {
+              "offer_id": "be2fe882c73c891d",
+              "offerId": "be2fe882c73c891d",
+              "segments": {
+                "segment_list": [
+                  {
+                    "leg_data": [
+                      {
+                        "departure_info": {
+                          "airport": {
+                            "code": "SIN",
+                            "terminal": "1"
+                          },
+                          "scheduled_time": "27-Dec-2024 11:35 AM",
+                          "dt": "27/12/2024 11:35"
+                        },
+                        "arrival_info": {
+                          "airport": {
+                            "code": "KUL",
+                            "terminal": "3"
+                          },
+                          "scheduled_time": 1735273380,
+                          "arr_date": "2024-12-27"
+                        },
+                        "carrier": {
+                          "operating": "SQ",
+                          "marketing": "SQ",
+                          "mktg_carrier": "SQ",
+                          "flight_no": "136",
+                          "number": "SQ136"
+                        },
+                        "equipment": {
+                          "aircraft_code": "359",
+                          "type": "359"
+                        },
+                        "cabin": "Y",
+                        "cabin_class": "Y",
+                        "duration_minutes": 48,
+                        "elapsed_time": "0h 48m"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "stops": 0,
+              "num_stops": 0,
+              "total_journey_time": 48,
+              "total_journey": "0h 48m",
+              "pricing": {
+                "currency": "MYR",
+                "CurrencyCode": "MYR",
+                "total": 110.21,
+                "total_amount": "110.21",
+                "totalAmountDecimal": 110.21,
+                "per_pax": 110.21,
+                "base_fare": 98.05,
+                "BaseFare": 98.05,
+                "taxes_fees": {
+                  "tax_breakdown": [
+                    {
+                      "code": "UB",
+                      "amount": 6.03
+                    },
+                    {
+                      "code": "YQ",
+                      "amount": 3.26
+                    },
+                    {
+                      "code": "OB",
+                      "amount": 3.3
+                    },
+                    {
+                      "code": "SG",
+                      "amount": 2.94
+                    },
+                    {
+                      "code": "GB",
+                      "amount": -3.37
+                    }
+                  ],
+                  "total_tax": 12.16,
+                  "TotalTax": "12.16"
+                },
+                "pax_count": 1
+              },
+              "fare_basis": "HFL",
+              "booking_class": "Y",
+              "seats_remaining": 3,
+              "avl_seats": 3,
+              "seatAvailability": 3,
+              "validating_carrier": "SQ",
+              "last_ticketing_date": "2024-12-22T11:35:00+08:00",
+              "baggage": {
+                "checked": {
+                  "pieces": 1,
+                  "weight_kg": 20,
+                  "Weight": "20KG"
+                },
+                "cabin_baggage": {
+                  "pieces": 1,
+                  "weight_kg": 7
+                }
+              },
+              "refundable": false,
+              "isRefundable": false
+            },
+            {
+              "offer_id": "d18596b6f20cdccd",
+              "offerId": "d18596b6f20cdccd",
+              "segments": {
+                "segment_list": [
+                  {
+                    "leg_data": [
+                      {
+                        "departure_info": {
+                          "airport": {
+                            "code": "SIN",
+                            "terminal": "2"
+                          },
+                          "scheduled_time": 1735257600,
+                          "dt": "27/12/2024 08:00"
+                        },
+                        "arrival_info": {
+                          "airport": {
+                            "code": "KUL",
+                            "terminal": "2"
+                          },
+                          "scheduled_time": "20241227083600",
+                          "arr_date": "2024-12-27"
+                        },
+                        "carrier": {
+                          "operating": "TR",
+                          "marketing": "TR",
+                          "mktg_carrier": "TR",
+                          "flight_no": "681",
+                          "number": "TR681"
+                        },
+                        "equipment": {
+                          "aircraft_code": "320",
+                          "type": "320"
+                        },
+                        "cabin": "Y",
+                        "cabin_class": "Y",
+                        "duration_minutes": 36,
+                        "elapsed_time": "0h 36m"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "stops": 0,
+              "num_stops": 0,
+              "total_journey_time": 36,
+              "total_journey": "0h 36m",
+              "pricing": {
+                "currency": "MYR",
+                "CurrencyCode": "MYR",
+                "total": 61.58,
+                "total_amount": "61.58",
+                "totalAmountDecimal": 61.58,
+                "per_pax": 61.58,
+                "base_fare": 54.47,
+                "BaseFare": 54.47,
+                "taxes_fees": {
+                  "tax_breakdown": [
+                    {
+                      "code": "XT",
+                      "amount": 4.54
+                    },
+                    {
+                      "code": "UB",
+                      "amount": 3.62
+                    },
+                    {
+                      "code": "OB",
+                      "amount": 4.96
+                    },
+                    {
+                      "code": "YQ",
+                      "amount": -2.99
+                    },
+                    {
+                      "code": "D8",
+                      "amount": -3.02
+                    }
+                  ],
+                  "total_tax": 7.11,
+                  "TotalTax": "7.11"
+                },
+                "pax_count": 1
+              },
+              "fare_basis": "LOW",
+              "booking_class": "Y",
+              "seats_remaining": 2,
+              "avl_seats": 2,
+              "seatAvailability": 2,
+              "validating_carrier": "TR",
+              "last_ticketing_date": "20241226080000",
+              "baggage": {
+                "checked": {
+                  "pieces": 1,
+                  "weight_kg": 20,
+                  "Weight": "20KG"
+                },
+                "cabin_baggage": {
+                  "pieces": 1,
+                  "weight_kg": 7
+                }
+              },
+              "refundable": false,
+              "isRefundable": false
+            },
+            {
+              "offer_id": "267c208cb775d351",
+              "offerId": "267c208cb775d351",
+              "segments": {
+                "segment_list": [
+                  {
+                    "leg_data": [
+                      {
+                        "departure_info": {
+                          "airport": {
+                            "code": "SIN",
+                            "terminal": "1"
+                          },
+                          "scheduled_time": "27-Dec-2024 12:20 PM",
+                          "dt": "27/12/2024 12:20"
+                        },
+                        "arrival_info": {
+                          "airport": {
+                            "code": "KUL",
+                            "terminal": "2"
+                          },
+                          "scheduled_time": "27-Dec-2024 01:15 PM",
+                          "arr_date": "2024-12-27"
+                        },
+                        "carrier": {
+                          "operating": "3K",
+                          "marketing": "3K",
+                          "mktg_carrier": "3K",
+                          "flight_no": "726",
+                          "number": "3K726"
+                        },
+                        "equipment": {
+                          "aircraft_code": "320",
+                          "type": "320"
+                        },
+                        "cabin": "Y",
+                        "cabin_class": "Y",
+                        "duration_minutes": 55,
+                        "elapsed_time": "0h 55m"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "stops": 0,
+              "num_stops": 0,
+              "total_journey_time": 55,
+              "total_journey": "0h 55m",
+              "pricing": {
+                "currency": "MYR",
+                "CurrencyCode": "MYR",
+                "total": 73.13,
+                "total_amount": "73.13",
+                "totalAmountDecimal": 73.13,
+                "per_pax": 73.13,
+                "base_fare": 63.83,
+                "BaseFare": 63.83,
+                "taxes_fees": {
+                  "tax_breakdown": [
+                    {
+                      "code": "OB",
+                      "amount": 4.76
+                    },
+                    {
+                      "code": "SG",
+                      "amount": 4.51
+                    },
+                    {
+                      "code": "YR",
+                      "amount": 1.29
+                    },
+                    {
+                      "code": "GB",
+                      "amount": 2.56
+                    },
+                    {
+                      "code": "XT",
+                      "amount": -3.82
+                    }
+                  ],
+                  "total_tax": 9.3,
+                  "TotalTax": "9.3"
+                },
+                "pax_count": 1
+              },
+              "fare_basis": "YFL1M",
+              "booking_class": "Y",
+              "seats_remaining": 4,
+              "avl_seats": 4,
+              "seatAvailability": 4,
+              "validating_carrier": "3K",
+              "last_ticketing_date": 1734668400,
+              "baggage": {
+                "checked": {
+                  "pieces": 1,
+                  "weight_kg": 20,
+                  "Weight": "20KG"
+                },
+                "cabin_baggage": {
+                  "pieces": 1,
+                  "weight_kg": 7
+                }
+              },
+              "refundable": false,
+              "isRefundable": false
+            }
+          ],
+          "result_count": 6
+        }
+      },
+      "search_params": {
+        "orig": "KUL",
+        "dest": "SIN",
+        "Origin": "KUL",
+        "Destination": "SIN",
+        "dep_date": "2024-12-20",
+        "DepartureDate": "2024-12-20",
+        "pax": 1,
+        "cabin": "Y"
+      },
+      "meta": {
+        "request_time_ms": 328,
+        "provider": "GDS_TRAVELPORT",
+        "timestamp": "19/03/2026 07:15",
+        "cache_hit": false
+      }
+    }
+  }
+}

@@ -34,5 +34,7 @@ class FlightSearchRequest(BaseModel):
     cabin: str = "ECONOMY"
 
 class FlightSearchResponse(BaseModel):
-    count: int
-    offers: List[FlightOffer]
+    outbound_count: int
+    outbound_offers: List[FlightOffer]
+    inbound_count: int = 0
+    inbound_offers: List[FlightOffer] = []

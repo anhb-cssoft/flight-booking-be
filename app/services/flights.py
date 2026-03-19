@@ -82,13 +82,14 @@ class FlightService:
         )
 
     async def search_flights(self, search_req: bff_schemas.FlightSearchRequest) -> bff_schemas.FlightSearchResponse:
-        # Mapping BFF cabin classes to Legacy codes
+        # Mapping BFF cabin classes to Legacy codes: ECONOMY -> Y, etc.
         cabin_map = {
             "ECONOMY": "Y",
             "PREMIUM_ECONOMY": "W",
             "BUSINESS": "J",
             "FIRST": "F"
         }
+        # Use .upper() to handle cases like "economy"
         legacy_cabin = cabin_map.get(search_req.cabin.upper(), "Y")
 
         legacy_req = legacy_schemas.SearchRequest(
@@ -102,15 +103,23 @@ class FlightService:
         
         legacy_data = await legacy_api_client.search_flights(legacy_req)
         
-        outbound_results = legacy_data.get("data", {}).get("flight_results", {}).get("outbound", {}).get("results", [])
+        flight_results = legacy_data.get("data", {}).get("flight_results", {})
         
-        # Parallel mapping because it calls airport_service.get_airport (async)
-        tasks = [self._map_legacy_offer_to_bff(offer) for offer in outbound_results]
-        offers = await asyncio.gather(*tasks)
+        # Process Outbound
+        outbound_data = flight_results.get("outbound", {}).get("results", [])
+        outbound_tasks = [self._map_legacy_offer_to_bff(offer) for offer in outbound_data]
+        outbound_offers = await asyncio.gather(*outbound_tasks)
+        
+        # Process Inbound (if return trip)
+        inbound_data = flight_results.get("inbound", {}).get("results", [])
+        inbound_tasks = [self._map_legacy_offer_to_bff(offer) for offer in inbound_data]
+        inbound_offers = await asyncio.gather(*inbound_tasks)
         
         return bff_schemas.FlightSearchResponse(
-            count=len(offers),
-            offers=offers
+            outbound_count=len(outbound_offers),
+            outbound_offers=outbound_offers,
+            inbound_count=len(inbound_offers),
+            inbound_offers=inbound_offers
         )
 
     async def get_offer_details(self, offer_id: str) -> bff_schemas.FlightOffer:
