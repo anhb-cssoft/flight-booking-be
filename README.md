@@ -1,50 +1,50 @@
 # Flight Booking BFF API
 
-Dự án này là một **Backend for Frontend (BFF)** được xây dựng bằng **FastAPI**, đóng vai trò như một lớp trung gian (wrapper) sạch sẽ và hiện đại cho hệ thống đặt vé máy bay legacy (easyGDS).
+This project is a **Backend for Frontend (BFF)** built with **FastAPI**, serving as a clean and modern wrapper for a legacy flight booking system (easyGDS).
 
-## Tính năng chính
-- **Chuẩn hóa dữ liệu**: Ánh xạ dữ liệu từ định dạng legacy (hỗn loạn) sang chuẩn RESTful hiện đại.
-- **Caching**: Sử dụng `diskcache` để lưu thông tin sân bay, giảm thiểu các cuộc gọi dư thừa tới API legacy.
-- **Xử lý lỗi**: Thống nhất định dạng lỗi trả về cho frontend.
-- **Hỗ trợ Async**: Tận dụng `httpx` và `FastAPI` cho hiệu năng cao.
+## Key Features
+- **Data Standardization**: Maps data from chaotic legacy formats to modern RESTful standards.
+- **Caching**: Uses `diskcache` to store airport information, minimizing redundant calls to the legacy API.
+- **Error Handling**: Unified error response format for the frontend.
+- **Async Support**: Leverages `httpx` and `FastAPI` for high performance.
 
 ---
 
-## 1. Yêu cầu hệ thống
-- **Python**: 3.10 trở lên.
-- **Hệ điều hành**: Windows, macOS hoặc Linux.
+## 1. System Requirements
+- **Python**: 3.10 or higher.
+- **Operating System**: Windows, macOS, or Linux.
 
-## 2. Cài đặt và Thiết lập
+## 2. Installation and Setup
 
-### Bước 1: Tạo môi trường ảo (Khuyến nghị)
+### Step 1: Create a Virtual Environment (Recommended)
 ```bash
 python -m venv .venv
-# Kích hoạt trên Windows (PowerShell):
+# Activate on Windows (PowerShell):
 .\.venv\Scripts\Activate.ps1
-# Kích hoạt trên macOS/Linux:
+# Activate on macOS/Linux:
 source .venv/bin/activate
 ```
 
-### Bước 2: Cài đặt Dependencies
+### Step 2: Install Dependencies
 ```bash
 pip install .
 ```
-Nếu bạn muốn cài đặt cả các công cụ phát triển (test, lint):
+If you want to install development tools (tests, linting):
 ```bash
 pip install ".[dev]"
 ```
 
-### Bước 3: Cấu hình biến môi trường
-Kiểm tra file `.env` ở thư mục gốc để đảm bảo `LEGACY_API_BASE_URL` đã chính xác:
+### Step 3: Configure Environment Variables
+Check the `.env` file in the root directory to ensure the `LEGACY_API_BASE_URL` is correct:
 ```env
 LEGACY_API_BASE_URL=https://mock-travel-api.vercel.app
 ```
 
 ---
 
-## 3. Chạy ứng dụng
+## 3. Running the Application
 
-Sử dụng lệnh sau để chạy server ở chế độ phát triển:
+Use the following command to run the server in development mode:
 ```bash
 # Windows (PowerShell)
 $env:PYTHONPATH="."
@@ -54,19 +54,19 @@ uvicorn app.main:app --reload
 PYTHONPATH=. uvicorn app.main:app --reload
 ```
 
-Server sẽ mặc định chạy tại: **http://127.0.0.1:8000**
+The server will run by default at: **http://127.0.0.1:8000**
 
 ---
 
-## 4. Tài liệu API (Interactive Docs)
-Sau khi server chạy, bạn có thể truy cập vào các đường dẫn sau để xem tài liệu và thử nghiệm trực tiếp:
+## 4. API Documentation (Interactive Docs)
+Once the server is running, you can access the following links to view the documentation and test endpoints directly:
 - **Swagger UI**: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 - **ReDoc**: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
 
 ---
 
-## 5. Chạy Tests
-Để đảm bảo chất lượng và tính ổn định, hãy chạy bộ test bằng `pytest`:
+## 5. Running Tests
+To ensure quality and stability, run the test suite using `pytest`:
 ```bash
 # Windows (PowerShell)
 $env:PYTHONPATH="."
@@ -78,9 +78,9 @@ PYTHONPATH=. pytest
 
 ---
 
-## 6. Cấu trúc thư mục chính
-- `app/api/`: Định nghĩa các endpoint và schema (định dạng dữ liệu trả về cho frontend).
-- `app/clients/`: Client kết nối với API legacy (easyGDS).
-- `app/services/`: Chứa logic nghiệp vụ và ánh xạ dữ liệu (mapping).
-- `app/core/`: Các file cấu hình hệ thống.
-- `tests/`: Bộ test case xác thực tính đúng đắn của ứng dụng.
+## 6. Main Directory Structure
+- `app/api/`: Endpoint and schema definitions (data format returned to the frontend).
+- `app/clients/`: Client connecting to the legacy API (easyGDS).
+- `app/services/`: Business logic and data mapping services.
+- `app/core/`: System configuration files.
+- `tests/`: Test cases verifying the correctness of the application.

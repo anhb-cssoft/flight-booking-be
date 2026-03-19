@@ -19,6 +19,6 @@
 - Every endpoint must have a `summary`, `description`, and `response_model`.
 - Write Google-style Docstrings for critical logic functions.
 
-## 5. Security
-- Never commit `.env` files containing sensitive API keys or base URLs.
-- Perform strict input validation (Pydantic) before forwarding data to the Legacy API.
+## 6. Language & Communication
+- **English Only**: All code comments, documentation, and Git commit messages must be written in English.
+- **Commit Style**: Use Conventional Commits (e.g., `feat:`, `fix:`, `docs:`, `refactor:`).
