@@ -54,12 +54,12 @@ class BaggageAllowance(BaseBFFModel):
 # Base class for common fields
 class FlightOfferBase(BaseBFFModel):
     offer_id: str
-    segments: List[FlightSegment] = []
     is_refundable: bool = True
     cabin_class: Optional[str] = None
 
 # Lean model for Search Results
 class FlightSearchOffer(FlightOfferBase):
+    segments: List[FlightSegment] = []
     pricing: PricingBreakdown
     baggage: Optional[BaggageAllowance] = None
     seats_remaining: Optional[int] = None
@@ -67,12 +67,44 @@ class FlightSearchOffer(FlightOfferBase):
     booking_class: Optional[str] = None
     validating_carrier: Optional[str] = None
 
-# Enriched model for Offer Details
-class FlightOfferDetails(FlightSearchOffer):
-    status: Optional[str] = None
-    expires_at: Optional[datetime] = None
+# New detailed models for v2 Offer Details
+class FarePenalty(BaseBFFModel):
+    amount: float
+    currency: str = "USD"
+
+class DetailedFareRules(BaseBFFModel):
+    refund: Optional[dict] = None # {allowed: bool, penalty: FarePenalty}
+    change: Optional[dict] = None # {allowed: bool, penalty: FarePenalty}
+    no_show: Optional[dict] = None # {penalty: FarePenalty}
+
+class BaggageDetail(BaseBFFModel):
+    quantity: Optional[int] = None
+    weight_kg: Optional[int] = None
+
+class DetailedBaggageAllowance(BaseBFFModel):
+    checked: Optional[BaggageDetail] = None
+    cabin: Optional[BaggageDetail] = None
+
+class FareConditions(BaseBFFModel):
+    advance_purchase_days: Optional[int] = None
+    min_stay_days: Optional[int] = None
+    max_stay_days: Optional[int] = None
+
+class PaymentRequirements(BaseBFFModel):
+    accepted_methods: List[str] = []
     time_limit: Optional[datetime] = None
-    fare_rules: Optional[FareRules] = None
+    instant_ticketing_required: bool = False
+
+# Enriched model for Offer Details (v2) - Strict mapping
+class FlightOfferDetails(FlightOfferBase):
+    status: Optional[str] = None
+    fare_family: Optional[str] = None
+    rules: Optional[DetailedFareRules] = None
+    conditions: Optional[FareConditions] = None
+    baggage_allowance: Optional[DetailedBaggageAllowance] = None
+    payment_requirements: Optional[PaymentRequirements] = None
+    created_at: Optional[datetime] = None
+    expires_at: Optional[datetime] = None
 
 class FlightSearchRequest(BaseBFFModel):
     origin: str

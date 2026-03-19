@@ -1,0 +1,35 @@
+{
+  "offerId": "93f1d242d6fddd80",
+  "status": "LIVE",
+  "isRefundable": false,
+  "fareFamily": "FLEX",
+  "rules": {
+    "refund": {
+      "allowed": false,
+      "penalty": { "amount": 150, "currency": "MYR" }
+    },
+    "change": {
+      "allowed": true,
+      "penalty": { "amount": 200, "currency": "MYR" }
+    },
+    "noShow": {
+      "penalty": { "amount": 200, "currency": "MYR" }
+    }
+  },
+  "conditions": {
+    "advancePurchaseDays": 7,
+    "minStayDays": 3,
+    "maxStayDays": 90
+  },
+  "baggageAllowance": {
+    "checked": { "quantity": 1, "weightKg": 30 },
+    "cabin": { "quantity": 1, "weightKg": 7 }
+  },
+  "paymentRequirements": {
+    "acceptedMethods": ["CC", "DC", "BT"],
+    "timeLimit": "2026-03-20T08:46:00",
+    "instantTicketingRequired": true
+  },
+  "createdAt": "2026-03-19T07:46:00",
+  "expiresAt": "2026-03-19T08:21:24"
+}
