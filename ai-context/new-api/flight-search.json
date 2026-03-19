@@ -1,0 +1,427 @@
+{
+  "endpoint": "POST /api/v1/flightsearch",
+  "description": "Search flights. Returns ALL results with no pagination. Response is deeply nested and contains redundant fields. Error format: {'error': {'message': '...', 'code': N}}",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "request": {
+    "body": {
+      "origin": "KUL",
+      "destination": "SIN",
+      "departure_date": "2024-12-20",
+      "return_date": "2024-12-27",
+      "pax_count": 1,
+      "cabin": "Y"
+    }
+  },
+  "response": {
+    "outbound_count": 13,
+    "outbound_offers": [
+      {
+        "offer_id": "93f1d242d6fddd80",
+        "segments": [
+          {
+            "flight_number": "MH790",
+            "carrier": "MH",
+            "origin": "KUL",
+            "origin_city": "Kuala Lumpur",
+            "destination": "SIN",
+            "destination_city": "Singapore",
+            "departure_at": "2024-12-20T21:40:00",
+            "arrival_at": "2024-12-20T22:39:00",
+            "duration_minutes": 59
+          }
+        ],
+        "is_refundable": false,
+        "cabin_class": "ECONOMY",
+        "total_price": 88.84,
+        "currency": "MYR"
+      },
+      {
+        "offer_id": "698737ab893df29b",
+        "segments": [
+          {
+            "flight_number": "MH520",
+            "carrier": "MH",
+            "origin": "KUL",
+            "origin_city": "Kuala Lumpur",
+            "destination": "SIN",
+            "destination_city": "Singapore",
+            "departure_at": "2024-12-20T17:30:00+08:00",
+            "arrival_at": "2024-12-20T18:27:00",
+            "duration_minutes": 57
+          }
+        ],
+        "is_refundable": false,
+        "cabin_class": "ECONOMY",
+        "total_price": 98.43,
+        "currency": "MYR"
+      },
+      {
+        "offer_id": "ddd0a533c1eac031",
+        "segments": [
+          {
+            "flight_number": "MH314",
+            "carrier": "MH",
+            "origin": "KUL",
+            "origin_city": "Kuala Lumpur",
+            "destination": "SIN",
+            "destination_city": "Singapore",
+            "departure_at": "2024-12-20T08:45:00",
+            "arrival_at": "2024-12-20T10:47:00",
+            "duration_minutes": 62
+          }
+        ],
+        "is_refundable": false,
+        "cabin_class": "ECONOMY",
+        "total_price": 157.85,
+        "currency": "MYR"
+      },
+      {
+        "offer_id": "5faf4e61444ae697",
+        "segments": [
+          {
+            "flight_number": "AK303",
+            "carrier": "AK",
+            "origin": "KUL",
+            "origin_city": "Kuala Lumpur",
+            "destination": "SIN",
+            "destination_city": "Singapore",
+            "departure_at": "2024-12-20T17:45:00",
+            "arrival_at": "2024-12-20T17:33:00",
+            "duration_minutes": 48
+          }
+        ],
+        "is_refundable": false,
+        "cabin_class": "ECONOMY",
+        "total_price": 45.69,
+        "currency": "MYR"
+      },
+      {
+        "offer_id": "4a820db7c5a32fa9",
+        "segments": [
+          {
+            "flight_number": "AK903",
+            "carrier": "AK",
+            "origin": "KUL",
+            "origin_city": "Kuala Lumpur",
+            "destination": "SIN",
+            "destination_city": "Singapore",
+            "departure_at": "2024-12-20T21:55:00+08:00",
+            "arrival_at": "2024-12-20T23:06:00+08:00",
+            "duration_minutes": 71
+          }
+        ],
+        "is_refundable": false,
+        "cabin_class": "ECONOMY",
+        "total_price": 58,
+        "currency": "MYR"
+      },
+      {
+        "offer_id": "0dbb2e8bc8031358",
+        "segments": [
+          {
+            "flight_number": "AK999",
+            "carrier": "AK",
+            "origin": "KUL",
+            "origin_city": "Kuala Lumpur",
+            "destination": "SIN",
+            "destination_city": "Singapore",
+            "departure_at": "2024-12-20T22:15:00+08:00",
+            "arrival_at": "2024-12-20T23:20:00",
+            "duration_minutes": 65
+          }
+        ],
+        "is_refundable": false,
+        "cabin_class": "ECONOMY",
+        "total_price": 57.55,
+        "currency": "MYR"
+      },
+      {
+        "offer_id": "2344fe9e1b4bef77",
+        "segments": [
+          {
+            "flight_number": "SQ135",
+            "carrier": "SQ",
+            "origin": "KUL",
+            "origin_city": "Kuala Lumpur",
+            "destination": "SIN",
+            "destination_city": "Singapore",
+            "departure_at": "2024-12-20T13:10:00",
+            "arrival_at": "2024-12-20T14:03:00",
+            "duration_minutes": 53
+          }
+        ],
+        "is_refundable": false,
+        "cabin_class": "ECONOMY",
+        "total_price": 128.87,
+        "currency": "MYR"
+      },
+      {
+        "offer_id": "9aca3b2f714f99b3",
+        "segments": [
+          {
+            "flight_number": "TR491",
+            "carrier": "TR",
+            "origin": "KUL",
+            "origin_city": "Kuala Lumpur",
+            "destination": "SIN",
+            "destination_city": "Singapore",
+            "departure_at": "2024-12-20T17:55:00",
+            "arrival_at": "2024-12-20T18:49:00+08:00",
+            "duration_minutes": 54
+          }
+        ],
+        "is_refundable": false,
+        "cabin_class": "ECONOMY",
+        "total_price": 71.65,
+        "currency": "MYR"
+      },
+      {
+        "offer_id": "87dca41a460347b1",
+        "segments": [
+          {
+            "flight_number": "3K874",
+            "carrier": "3K",
+            "origin": "KUL",
+            "origin_city": "Kuala Lumpur",
+            "destination": "SIN",
+            "destination_city": "Singapore",
+            "departure_at": "2024-12-20T17:40:00",
+            "arrival_at": "2024-12-20T18:19:00",
+            "duration_minutes": 39
+          }
+        ],
+        "is_refundable": false,
+        "cabin_class": "ECONOMY",
+        "total_price": 50.26,
+        "currency": "MYR"
+      },
+      {
+        "offer_id": "5de81265ff4325a6",
+        "segments": [
+          {
+            "flight_number": "3K260",
+            "carrier": "3K",
+            "origin": "KUL",
+            "origin_city": "Kuala Lumpur",
+            "destination": "SIN",
+            "destination_city": "Singapore",
+            "departure_at": "2024-12-20T08:40:00",
+            "arrival_at": "2024-12-20T09:48:00",
+            "duration_minutes": 68
+          }
+        ],
+        "is_refundable": false,
+        "cabin_class": "ECONOMY",
+        "total_price": 46.74,
+        "currency": "MYR"
+      },
+      {
+        "offer_id": "672f30ed0ed9d9a2",
+        "segments": [
+          {
+            "flight_number": "3K165",
+            "carrier": "3K",
+            "origin": "KUL",
+            "origin_city": "Kuala Lumpur",
+            "destination": "SIN",
+            "destination_city": "Singapore",
+            "departure_at": "2024-12-20T11:10:00",
+            "arrival_at": "2024-12-20T12:00:00",
+            "duration_minutes": 50
+          }
+        ],
+        "is_refundable": false,
+        "cabin_class": "ECONOMY",
+        "total_price": 50.44,
+        "currency": "MYR"
+      },
+      {
+        "offer_id": "a2ea3a4b52690756",
+        "segments": [
+          {
+            "flight_number": "MH729",
+            "carrier": "MH",
+            "origin": "KUL",
+            "origin_city": "Kuala Lumpur",
+            "destination": "BKK",
+            "destination_city": "Bangkok",
+            "departure_at": "2024-12-20T05:05:00",
+            "arrival_at": "2024-12-20T05:53:00",
+            "duration_minutes": 108
+          },
+          {
+            "flight_number": "MH282",
+            "carrier": "MH",
+            "origin": "BKK",
+            "origin_city": "Bangkok",
+            "destination": "SIN",
+            "destination_city": "Singapore",
+            "departure_at": "2024-12-20T08:33:00+08:00",
+            "arrival_at": "2024-12-20T11:08:00+08:00",
+            "duration_minutes": 155
+          }
+        ],
+        "is_refundable": false,
+        "cabin_class": "ECONOMY",
+        "total_price": 106.83,
+        "currency": "MYR"
+      },
+      {
+        "offer_id": "d8fa1fe0490a4bdd",
+        "segments": [
+          {
+            "flight_number": "MH427",
+            "carrier": "MH",
+            "origin": "KUL",
+            "origin_city": "Kuala Lumpur",
+            "destination": "HKG",
+            "destination_city": "Hong Kong",
+            "departure_at": "2024-12-20T21:15:00",
+            "arrival_at": "2024-12-20T23:42:00",
+            "duration_minutes": 207
+          },
+          {
+            "flight_number": "MH437",
+            "carrier": "MH",
+            "origin": "HKG",
+            "origin_city": "Hong Kong",
+            "destination": "SIN",
+            "destination_city": "Singapore",
+            "departure_at": "2024-12-21T02:39:00",
+            "arrival_at": "2024-12-21T06:17:00",
+            "duration_minutes": 218
+          }
+        ],
+        "is_refundable": false,
+        "cabin_class": "ECONOMY",
+        "total_price": 104.3,
+        "currency": "MYR"
+      }
+    ],
+    "inbound_count": 6,
+    "inbound_offers": [
+      {
+        "offer_id": "94875bd42b3cc558",
+        "segments": [
+          {
+            "flight_number": "MH757",
+            "carrier": "MH",
+            "origin": "SIN",
+            "origin_city": "Singapore",
+            "destination": "KUL",
+            "destination_city": "Kuala Lumpur",
+            "departure_at": "2024-12-27T16:35:00",
+            "arrival_at": "2024-12-27T18:46:00",
+            "duration_minutes": 71
+          }
+        ],
+        "is_refundable": false,
+        "cabin_class": "ECONOMY",
+        "total_price": 149.04,
+        "currency": "MYR"
+      },
+      {
+        "offer_id": "0e81da3093430654",
+        "segments": [
+          {
+            "flight_number": "MH721",
+            "carrier": "MH",
+            "origin": "SIN",
+            "origin_city": "Singapore",
+            "destination": "KUL",
+            "destination_city": "Kuala Lumpur",
+            "departure_at": "2024-12-27T09:25:00",
+            "arrival_at": "2024-12-27T11:09:00",
+            "duration_minutes": 44
+          }
+        ],
+        "is_refundable": false,
+        "cabin_class": "ECONOMY",
+        "total_price": 156.18,
+        "currency": "MYR"
+      },
+      {
+        "offer_id": "642188314fb4772f",
+        "segments": [
+          {
+            "flight_number": "AK583",
+            "carrier": "AK",
+            "origin": "SIN",
+            "origin_city": "Singapore",
+            "destination": "KUL",
+            "destination_city": "Kuala Lumpur",
+            "departure_at": "2024-12-27T09:55:00+08:00",
+            "arrival_at": "2024-12-27T09:48:00",
+            "duration_minutes": 53
+          }
+        ],
+        "is_refundable": false,
+        "cabin_class": "ECONOMY",
+        "total_price": 77.32,
+        "currency": "MYR"
+      },
+      {
+        "offer_id": "be2fe882c73c891d",
+        "segments": [
+          {
+            "flight_number": "SQ136",
+            "carrier": "SQ",
+            "origin": "SIN",
+            "origin_city": "Singapore",
+            "destination": "KUL",
+            "destination_city": "Kuala Lumpur",
+            "departure_at": "2024-12-27T11:35:00",
+            "arrival_at": "2024-12-27T11:23:00",
+            "duration_minutes": 48
+          }
+        ],
+        "is_refundable": false,
+        "cabin_class": "ECONOMY",
+        "total_price": 110.21,
+        "currency": "MYR"
+      },
+      {
+        "offer_id": "d18596b6f20cdccd",
+        "segments": [
+          {
+            "flight_number": "TR681",
+            "carrier": "TR",
+            "origin": "SIN",
+            "origin_city": "Singapore",
+            "destination": "KUL",
+            "destination_city": "Kuala Lumpur",
+            "departure_at": "2024-12-27T07:00:00",
+            "arrival_at": "2024-12-27T08:36:00",
+            "duration_minutes": 36
+          }
+        ],
+        "is_refundable": false,
+        "cabin_class": "ECONOMY",
+        "total_price": 61.58,
+        "currency": "MYR"
+      },
+      {
+        "offer_id": "267c208cb775d351",
+        "segments": [
+          {
+            "flight_number": "3K726",
+            "carrier": "3K",
+            "origin": "SIN",
+            "origin_city": "Singapore",
+            "destination": "KUL",
+            "destination_city": "Kuala Lumpur",
+            "departure_at": "2024-12-27T12:20:00",
+            "arrival_at": "2024-12-27T13:15:00",
+            "duration_minutes": 55
+          }
+        ],
+        "is_refundable": false,
+        "cabin_class": "ECONOMY",
+        "total_price": 73.13,
+        "currency": "MYR"
+      }
+    ]
+  }
+}

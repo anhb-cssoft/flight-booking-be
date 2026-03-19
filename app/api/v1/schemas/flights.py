@@ -99,6 +99,7 @@ class PaymentRequirements(BaseBFFModel):
 class FlightOfferDetails(FlightOfferBase):
     status: Optional[str] = None
     fare_family: Optional[str] = None
+    pricing: Optional[PricingBreakdown] = None
     rules: Optional[DetailedFareRules] = None
     conditions: Optional[FareConditions] = None
     baggage_allowance: Optional[DetailedBaggageAllowance] = None

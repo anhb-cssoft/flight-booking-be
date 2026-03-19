@@ -1,0 +1,43 @@
+{
+  "endpoint": "GET /api/v1/flights/offers/{offer_id}",
+  "description": "Get details for a specific offer. Error format: {'errors': [{'code': '...', 'detail': '...'}]}",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "path_params": {
+    "offer_id": "93f1d242d6fddd80"
+  },
+  "response": {
+    "offerId": "93f1d242d6fddd80",
+    "segments": [],
+    "isRefundable": true,
+    "cabinClass": "ECONOMY",
+    "pricing": {
+      "total": 0,
+      "base": 0,
+      "tax": 0,
+      "currency": "USD",
+      "taxBreakdown": []
+    },
+    "baggage": {
+      "checkedPieces": null,
+      "checkedWeightKg": 30,
+      "cabinPieces": null,
+      "cabinWeightKg": 7
+    },
+    "seatsRemaining": null,
+    "fareBasis": null,
+    "bookingClass": null,
+    "validatingCarrier": null,
+    "status": "LIVE",
+    "expiresAt": "2026-03-19T09:50:43",
+    "timeLimit": "2026-03-20T10:15:00",
+    "fareRules": {
+      "refundAllowed": false,
+      "refundPenalty": 150,
+      "changeAllowed": true,
+      "changePenalty": 200,
+      "currency": "MYR"
+    }
+  }
+}

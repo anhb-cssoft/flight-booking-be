@@ -44,7 +44,16 @@ async def test_get_offer_details_v2_accuracy():
                     "instant_ticketing_required": True
                 },
                 "created_at": "19/03/2026 07:46",
-                "expires_at": "20260319082124"
+                "expires_at": "20260319082124",
+                "pricing": {
+                    "total": 150.0,
+                    "base_fare": 130.0,
+                    "currency": "USD",
+                    "taxes_fees": {
+                        "total_tax": 20.0,
+                        "tax_breakdown": [{"code": "YQ", "amount": 20.0}]
+                    }
+                }
             }
         }
     }
@@ -57,9 +66,10 @@ async def test_get_offer_details_v2_accuracy():
         assert response.status_code == 200
         data = response.json()
         
-        # 1. Verify NO invented fields
+        # 1. Verify expected fields
         assert "segments" not in data
-        assert "pricing" not in data
+        assert "pricing" in data
+        assert data["pricing"]["total"] == 150.0
         
         # 2. Verify logical accuracy
         assert data["isRefundable"] is False

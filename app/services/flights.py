@@ -102,21 +102,22 @@ class FlightService:
                         arrival_at=arr_time,
                         duration_minutes=leg.get("duration_minutes", 0),
                         aircraft_code=leg.get("equipment", {}).get("aircraft_code") or leg.get("equipment", {}).get("type")
-                    ))
+            ))
 
-            legacy_pricing = legacy_offer.get("pricing", {})
-            taxes_fees = legacy_pricing.get("taxes_fees", {})
-            pricing = bff_schemas.PricingBreakdown(
-                total=float(legacy_pricing.get("total") or legacy_pricing.get("total_amount") or 0),
-                base=float(legacy_pricing.get("base_fare") or legacy_pricing.get("BaseFare") or 0),
-                tax=float(taxes_fees.get("total_tax") or taxes_fees.get("TotalTax") or 0),
-                currency=legacy_pricing.get("currency") or legacy_pricing.get("CurrencyCode") or "USD",
-                tax_breakdown=[
-                    bff_schemas.TaxItem(code=t.get("code"), amount=float(t.get("amount") or 0))
-                    for t in taxes_fees.get("tax_breakdown", [])
-                ]
-            )
+        legacy_pricing = legacy_offer.get("pricing", {})
+        taxes_fees = legacy_pricing.get("taxes_fees", {})
+        pricing = bff_schemas.PricingBreakdown(
+            total=float(legacy_pricing.get("total") or legacy_pricing.get("total_amount") or 0),
+            base=float(legacy_pricing.get("base_fare") or legacy_pricing.get("BaseFare") or 0),
+            tax=float(taxes_fees.get("total_tax") or taxes_fees.get("TotalTax") or 0),
+            currency=legacy_pricing.get("currency") or legacy_pricing.get("CurrencyCode") or "USD",
+            tax_breakdown=[
+                bff_schemas.TaxItem(code=t.get("code"), amount=float(t.get("amount") or 0))
+                for t in taxes_fees.get("tax_breakdown", [])
+            ]
+        )
 
+        if context == "search":
             legacy_baggage = legacy_offer.get("baggage", {})
             baggage = bff_schemas.BaggageAllowance(
                 checked_pieces=legacy_baggage.get("checked", {}).get("pieces"),
@@ -198,6 +199,7 @@ class FlightService:
             cabin_class=final_cabin_label,
             status=legacy_offer.get("status"),
             fare_family=fare_details.get("fare_family"),
+            pricing=pricing,
             rules=detailed_rules,
             conditions=conditions,
             baggage_allowance=detailed_baggage,

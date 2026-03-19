@@ -35,8 +35,8 @@ class BookingService:
         return bff_schemas.BookingResponse(
             booking_reference=legacy_res.get("booking_reference") or legacy_res.get("pnr") or "FAILED",
             status=legacy_res.get("status", "CONFIRMED"),
-            total_price=offer_details.total_price,
-            currency=offer_details.currency,
+            total_price=offer_details.pricing.total if offer_details.pricing else 0.0,
+            currency=offer_details.pricing.currency if offer_details.pricing else "USD",
             passengers=booking_req.passengers,
             offer_details=offer_details
         )

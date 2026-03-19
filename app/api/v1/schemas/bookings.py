@@ -1,8 +1,8 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import EmailStr
 from typing import List, Optional
-from .flights import FlightOfferDetails
+from .flights import FlightOfferDetails, BaseBFFModel
 
-class Passenger(BaseModel):
+class Passenger(BaseBFFModel):
 
     first_name: str
     last_name: str
@@ -11,13 +11,13 @@ class Passenger(BaseModel):
     phone: Optional[str] = None
     passport_no: Optional[str] = None
 
-class BookingRequest(BaseModel):
+class BookingRequest(BaseBFFModel):
     offer_id: str
     passengers: List[Passenger]
     contact_email: EmailStr
     contact_phone: Optional[str] = None
 
-class BookingResponse(BaseModel):
+class BookingResponse(BaseBFFModel):
     booking_reference: str
     status: str
     total_price: float
