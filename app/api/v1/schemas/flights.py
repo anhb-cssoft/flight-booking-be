@@ -30,12 +30,15 @@ class BaggageAllowance(BaseModel):
 
 class FlightOffer(BaseModel):
     offer_id: str
-    total_price: Optional[float] = 0.0
+    total_price: float = 0.0
     currency: str = "USD"
     segments: List[FlightSegment] = []
     is_refundable: bool = True
-    cabin_class: str
-    # Enriched details for the details endpoint
+    cabin_class: Optional[str] = None
+    status: Optional[str] = None
+    expires_at: Optional[datetime] = None
+    time_limit: Optional[datetime] = None
+    # Enriched details
     fare_rules: Optional[FareRules] = None
     baggage: Optional[BaggageAllowance] = None
 

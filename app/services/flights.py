@@ -18,8 +18,8 @@ class FlightService:
 
         # Try various formats
         formats = [
-            "%Y%m%d%H%M%S",          # 20241225055000
-            "%d/%m/%Y %H:%M",        # 25/12/2024 05:50
+            "%Y%m%d%H%M%S",          # 20241225055000 / 20260319082124
+            "%d/%m/%Y %H:%M",        # 25/12/2024 05:50 / 20/03/2026 08:46
             "%d-%b-%Y %I:%M %p",     # 25-Dec-2024 01:10 PM
             "%Y-%m-%dT%H:%M:%S%z",   # 2024-12-25T12:10:00+07:00
             "%Y-%m-%d"               # 2024-12-25
@@ -33,6 +33,12 @@ class FlightService:
         
         # If it's a numeric string (timestamp)
         if dt_val.isdigit():
+            # Handle long timestamp string
+            if len(dt_val) > 10:
+                try:
+                    return datetime.strptime(dt_val, "%Y%m%d%H%M%S")
+                except:
+                    pass
             return datetime.fromtimestamp(int(dt_val))
             
         return datetime.now() # Fallback
@@ -81,14 +87,16 @@ class FlightService:
         pricing = legacy_offer.get("pricing", {})
         
         # Cabin logic
-        cabin_code = legacy_offer.get("cabin_class") or legacy_offer.get("booking_class") or detected_cabin_code or "Y"
-        cabin_reverse_map = {
-            "Y": "ECONOMY",
-            "W": "PREMIUM_ECONOMY",
-            "J": "BUSINESS",
-            "F": "FIRST"
-        }
-        final_cabin_label = cabin_reverse_map.get(cabin_code.upper(), "ECONOMY")
+        cabin_code = legacy_offer.get("cabin_class") or legacy_offer.get("booking_class") or detected_cabin_code
+        final_cabin_label = None
+        if cabin_code:
+            cabin_reverse_map = {
+                "Y": "ECONOMY",
+                "W": "PREMIUM_ECONOMY",
+                "J": "BUSINESS",
+                "F": "FIRST"
+            }
+            final_cabin_label = cabin_reverse_map.get(cabin_code.upper(), "ECONOMY")
 
         # Fare Rules logic (Enrichment)
         fare_details = legacy_offer.get("fare_details", {})
@@ -114,14 +122,24 @@ class FlightService:
                 checked_kg=baggage_data.get("checked", {}).get("max_weight_kg"),
                 carry_on_kg=baggage_data.get("carry_on", {}).get("max_weight_kg")
             )
+            
+        # Extra details from /v2/offer
+        expires_at_raw = legacy_offer.get("expires_at")
+        expires_at = self._parse_legacy_datetime(expires_at_raw) if expires_at_raw else None
+        
+        time_limit_raw = legacy_offer.get("payment_requirements", {}).get("time_limit")
+        time_limit = self._parse_legacy_datetime(time_limit_raw) if time_limit_raw else None
 
         return bff_schemas.FlightOffer(
             offer_id=legacy_offer.get("offer_id") or legacy_offer.get("id"),
-            total_price=float(pricing.get("total", 0)) if pricing else 0.0,
+            total_price=float(pricing.get("total")) if pricing and pricing.get("total") else 0.0,
             currency=pricing.get("currency", "USD") if pricing else "USD",
             segments=segments,
             is_refundable=legacy_offer.get("refundable", refund.get("allowed", True)),
             cabin_class=final_cabin_label,
+            status=legacy_offer.get("status"),
+            expires_at=expires_at,
+            time_limit=time_limit,
             fare_rules=fare_rules,
             baggage=baggage
         )

@@ -22,3 +22,4 @@
 ## 6. Language & Communication
 - **English Only**: All code comments, documentation, and Git commit messages must be written in English.
 - **Commit Style**: Use Conventional Commits (e.g., `feat:`, `fix:`, `docs:`, `refactor:`).
+- **No Auto-Commit**: Never perform a Git commit automatically. Always wait for an explicit user directive to commit changes.
