@@ -14,6 +14,11 @@ class Settings(BaseSettings):
     CACHE_DIR: str = ".cache"
     AIRPORT_CACHE_TTL: int = 86400  # 24 hours
 
+    # Other Configuration
+    DEBUG: bool = False
+    CACHE_TTL: int = 3600
+    REDIS_URL: str = "redis://localhost:6379/0"
+
     model_config = SettingsConfigDict(env_file=".env", case_sensitive=True, extra="ignore")
 
 settings = Settings()
