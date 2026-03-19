@@ -80,17 +80,8 @@ class FlightService:
         
         pricing = legacy_offer.get("pricing", {})
         
-        # Map legacy code back to human-readable label
-        # Legacy often uses 'booking_class' or 'cabin_class' or just 'cabin'
-        cabin_code = legacy_offer.get("cabin_class") or legacy_offer.get("booking_class") or detected_cabin_code or "Y"
-        
-        cabin_reverse_map = {
-            "Y": "ECONOMY",
-            "W": "PREMIUM_ECONOMY",
-            "J": "BUSINESS",
-            "F": "FIRST"
-        }
-        final_cabin_label = cabin_reverse_map.get(cabin_code.upper(), "ECONOMY")
+        # Return the raw cabin code (Y, W, J, or F) as requested
+        final_cabin = legacy_offer.get("cabin_class") or legacy_offer.get("booking_class") or detected_cabin_code or "Y"
 
         return bff_schemas.FlightOffer(
             offer_id=legacy_offer.get("offer_id"),
@@ -98,18 +89,21 @@ class FlightService:
             currency=pricing.get("currency", "USD"),
             segments=segments,
             is_refundable=legacy_offer.get("refundable", False),
-            cabin_class=final_cabin_label
+            cabin_class=final_cabin.upper()
         )
 
     async def search_flights(self, search_req: bff_schemas.FlightSearchRequest) -> bff_schemas.FlightSearchResponse:
-        # Mapping BFF cabin classes to Legacy codes: ECONOMY -> Y, etc.
+        # Mapping BFF cabin classes or codes to Legacy codes
         cabin_map = {
             "ECONOMY": "Y",
             "PREMIUM_ECONOMY": "W",
             "BUSINESS": "J",
-            "FIRST": "F"
+            "FIRST": "F",
+            "Y": "Y",
+            "W": "W",
+            "J": "J",
+            "F": "F"
         }
-        # Use .upper() to handle cases like "economy"
         legacy_cabin = cabin_map.get(search_req.cabin.upper(), "Y")
 
         legacy_req = legacy_schemas.SearchRequest(
