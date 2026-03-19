@@ -67,7 +67,7 @@ class BookingService:
             created_at=created_at or datetime.now(timezone.utc)
         )
 
-    async def create_booking(self, booking_req: bff_schemas.BookingRequest) -> bff_schemas.BookingResponse:
+    async def create_booking(self, booking_req: bff_schemas.BookingRequest, simulate_issues: Optional[bool] = None) -> bff_schemas.BookingResponse:
         # Map BFF request to Legacy request
         legacy_passengers = [
             legacy_schemas.BookingPassenger(
@@ -89,11 +89,11 @@ class BookingService:
             contact_phone=booking_req.contact_phone
         )
         
-        legacy_res = await legacy_api_client.create_booking(legacy_req)
+        legacy_res = await legacy_api_client.create_booking(legacy_req, simulate_issues=simulate_issues)
         return self._map_legacy_to_bff(legacy_res)
 
-    async def get_booking(self, ref: str) -> bff_schemas.BookingResponse:
-        legacy_res = await legacy_api_client.get_reservation(ref)
+    async def get_booking(self, ref: str, simulate_issues: Optional[bool] = None) -> bff_schemas.BookingResponse:
+        legacy_res = await legacy_api_client.get_reservation(ref, simulate_issues=simulate_issues)
         return self._map_legacy_to_bff(legacy_res)
 
 booking_service = BookingService()

@@ -9,6 +9,12 @@ class Settings(BaseSettings):
     # Legacy API Configuration
     LEGACY_API_BASE_URL: str = "https://mock-travel-api.vercel.app"
     LEGACY_API_TIMEOUT: int = 30
+    LEGACY_API_SIMULATE_ISSUES: bool = False
+
+    # Resilience Configuration
+    MAX_RETRIES: int = 3
+    RETRY_BACKOFF_FACTOR: float = 2.0
+    RETRY_STATUS_CODES: list[int] = [429, 503]
 
     # Cache Configuration
     CACHE_DIR: str = ".cache"

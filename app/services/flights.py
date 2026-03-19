@@ -208,7 +208,7 @@ class FlightService:
             expires_at=self._parse_legacy_datetime(legacy_offer.get("expires_at"))
         )
 
-    async def search_flights(self, search_req: bff_schemas.FlightSearchRequest) -> bff_schemas.FlightSearchResponse:
+    async def search_flights(self, search_req: bff_schemas.FlightSearchRequest, simulate_issues: Optional[bool] = None) -> bff_schemas.FlightSearchResponse:
         cabin_map = {"ECONOMY": "Y", "PREMIUM_ECONOMY": "W", "BUSINESS": "J", "FIRST": "F", "Y": "Y", "W": "W", "J": "J", "F": "F"}
         legacy_cabin = cabin_map.get(search_req.cabin.upper(), "Y")
 
@@ -221,7 +221,7 @@ class FlightService:
             cabin=legacy_cabin
         )
         
-        legacy_data = await legacy_api_client.search_flights(legacy_req)
+        legacy_data = await legacy_api_client.search_flights(legacy_req, simulate_issues=simulate_issues)
         flight_results = legacy_data.get("data", {}).get("flight_results", {})
         
         outbound_data = flight_results.get("outbound", {}).get("results", [])
@@ -239,8 +239,8 @@ class FlightService:
             inbound_offers=inbound_offers
         )
 
-    async def get_offer_details(self, offer_id: str) -> bff_schemas.FlightOfferDetails:
-        legacy_data = await legacy_api_client.get_offer_details(offer_id)
+    async def get_offer_details(self, offer_id: str, simulate_issues: Optional[bool] = None) -> bff_schemas.FlightOfferDetails:
+        legacy_data = await legacy_api_client.get_offer_details(offer_id, simulate_issues=simulate_issues)
         offer_node = legacy_data.get("data", {}).get("offer", {})
         if not offer_node:
             offer_node = legacy_data.get("offer", {}) or legacy_data
