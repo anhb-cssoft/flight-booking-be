@@ -41,12 +41,19 @@ class FlightService:
         segments = []
         legacy_segments = legacy_offer.get("segments", {}).get("segment_list", [])
         
+        # Track cabin code from segments to use as fallback
+        detected_cabin_code = None
+        
         for leg_wrapper in legacy_segments:
             for leg in leg_wrapper.get("leg_data", []):
                 dep_info = leg.get("departure_info", {})
                 arr_info = leg.get("arrival_info", {})
                 carrier = leg.get("carrier", {})
                 
+                # Capture cabin code (e.g., 'Y', 'W')
+                if not detected_cabin_code:
+                    detected_cabin_code = leg.get("cabin") or leg.get("cabin_class")
+
                 origin_code = dep_info.get("airport", {}).get("code", "UNK")
                 dest_code = arr_info.get("airport", {}).get("code", "UNK")
                 
@@ -73,13 +80,25 @@ class FlightService:
         
         pricing = legacy_offer.get("pricing", {})
         
+        # Map legacy code back to human-readable label
+        # Legacy often uses 'booking_class' or 'cabin_class' or just 'cabin'
+        cabin_code = legacy_offer.get("cabin_class") or legacy_offer.get("booking_class") or detected_cabin_code or "Y"
+        
+        cabin_reverse_map = {
+            "Y": "ECONOMY",
+            "W": "PREMIUM_ECONOMY",
+            "J": "BUSINESS",
+            "F": "FIRST"
+        }
+        final_cabin_label = cabin_reverse_map.get(cabin_code.upper(), "ECONOMY")
+
         return bff_schemas.FlightOffer(
             offer_id=legacy_offer.get("offer_id"),
             total_price=float(pricing.get("total", 0)),
             currency=pricing.get("currency", "USD"),
             segments=segments,
             is_refundable=legacy_offer.get("refundable", False),
-            cabin_class=legacy_offer.get("cabin_class", "ECONOMY")
+            cabin_class=final_cabin_label
         )
 
     async def search_flights(self, search_req: bff_schemas.FlightSearchRequest) -> bff_schemas.FlightSearchResponse:
