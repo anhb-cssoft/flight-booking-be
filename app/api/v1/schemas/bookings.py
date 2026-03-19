@@ -1,8 +1,9 @@
 from pydantic import BaseModel, EmailStr
 from typing import List, Optional
-from .flights import FlightOffer
+from .flights import FlightOfferDetails
 
 class Passenger(BaseModel):
+
     first_name: str
     last_name: str
     title: Optional[str] = None
@@ -22,4 +23,4 @@ class BookingResponse(BaseModel):
     total_price: float
     currency: str
     passengers: List[Passenger]
-    offer_details: Optional[FlightOffer] = None
+    offer_details: Optional[FlightOfferDetails] = None

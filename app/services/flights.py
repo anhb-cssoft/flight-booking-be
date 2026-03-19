@@ -43,33 +43,27 @@ class FlightService:
             
         return datetime.now() # Fallback
 
-    async def _map_legacy_offer_to_bff(self, legacy_offer: Dict[str, Any]) -> bff_schemas.FlightOffer:
+    async def _map_legacy_offer_to_bff(self, legacy_offer: Dict[str, Any], context: str = "search") -> Union[bff_schemas.FlightSearchOffer, bff_schemas.FlightOfferDetails]:
         segments = []
         legacy_segments = legacy_offer.get("segments", {}).get("segment_list", [])
         
-        # Track cabin code from segments to use as fallback
         detected_cabin_code = None
-        
         for leg_wrapper in legacy_segments:
             for leg in leg_wrapper.get("leg_data", []):
                 dep_info = leg.get("departure_info", {})
                 arr_info = leg.get("arrival_info", {})
                 carrier = leg.get("carrier", {})
                 
-                # Capture cabin code (e.g., 'Y', 'W')
                 if not detected_cabin_code:
                     detected_cabin_code = leg.get("cabin") or leg.get("cabin_class")
 
                 origin_code = dep_info.get("airport", {}).get("code", "UNK")
                 dest_code = arr_info.get("airport", {}).get("code", "UNK")
                 
-                # Fetch city names from cache (fast)
                 origin_airport = await airport_service.get_airport(origin_code)
                 dest_airport = await airport_service.get_airport(dest_code)
                 
-                # Use scheduled_time or dt for departure
                 dep_time = self._parse_legacy_datetime(dep_info.get("scheduled_time") or dep_info.get("dt"))
-                # Use scheduled_time or arr_date for arrival
                 arr_time = self._parse_legacy_datetime(arr_info.get("scheduled_time") or arr_info.get("arr_date"))
                 
                 segments.append(bff_schemas.FlightSegment(
@@ -84,21 +78,28 @@ class FlightService:
                     duration_minutes=leg.get("duration_minutes", 0)
                 ))
         
-        pricing = legacy_offer.get("pricing", {})
-        
-        # Cabin logic
         cabin_code = legacy_offer.get("cabin_class") or legacy_offer.get("booking_class") or detected_cabin_code
         final_cabin_label = None
         if cabin_code:
-            cabin_reverse_map = {
-                "Y": "ECONOMY",
-                "W": "PREMIUM_ECONOMY",
-                "J": "BUSINESS",
-                "F": "FIRST"
-            }
+            cabin_reverse_map = {"Y": "ECONOMY", "W": "PREMIUM_ECONOMY", "J": "BUSINESS", "F": "FIRST"}
             final_cabin_label = cabin_reverse_map.get(cabin_code.upper(), "ECONOMY")
 
-        # Fare Rules logic (Enrichment)
+        common_data = {
+            "offer_id": legacy_offer.get("offer_id") or legacy_offer.get("id"),
+            "segments": segments,
+            "is_refundable": legacy_offer.get("refundable", True),
+            "cabin_class": final_cabin_label,
+        }
+
+        if context == "search":
+            pricing = legacy_offer.get("pricing", {})
+            return bff_schemas.FlightSearchOffer(
+                **common_data,
+                total_price=float(pricing.get("total", 0)),
+                currency=pricing.get("currency", "USD")
+            )
+        
+        # Context is "details"
         fare_details = legacy_offer.get("fare_details", {})
         rules = fare_details.get("rules", {})
         refund = rules.get("refund", {})
@@ -114,7 +115,6 @@ class FlightService:
                 currency=refund.get("penalty", {}).get("currency") or "USD"
             )
 
-        # Baggage logic (Enrichment)
         baggage_data = legacy_offer.get("baggage_allowance", {})
         baggage = None
         if baggage_data:
@@ -123,20 +123,14 @@ class FlightService:
                 carry_on_kg=baggage_data.get("carry_on", {}).get("max_weight_kg")
             )
             
-        # Extra details from /v2/offer
         expires_at_raw = legacy_offer.get("expires_at")
         expires_at = self._parse_legacy_datetime(expires_at_raw) if expires_at_raw else None
         
         time_limit_raw = legacy_offer.get("payment_requirements", {}).get("time_limit")
         time_limit = self._parse_legacy_datetime(time_limit_raw) if time_limit_raw else None
 
-        return bff_schemas.FlightOffer(
-            offer_id=legacy_offer.get("offer_id") or legacy_offer.get("id"),
-            total_price=float(pricing.get("total")) if pricing and pricing.get("total") else 0.0,
-            currency=pricing.get("currency", "USD") if pricing else "USD",
-            segments=segments,
-            is_refundable=legacy_offer.get("refundable", refund.get("allowed", True)),
-            cabin_class=final_cabin_label,
+        return bff_schemas.FlightOfferDetails(
+            **common_data,
             status=legacy_offer.get("status"),
             expires_at=expires_at,
             time_limit=time_limit,
@@ -145,17 +139,7 @@ class FlightService:
         )
 
     async def search_flights(self, search_req: bff_schemas.FlightSearchRequest) -> bff_schemas.FlightSearchResponse:
-        # Mapping BFF cabin classes or codes to Legacy codes
-        cabin_map = {
-            "ECONOMY": "Y",
-            "PREMIUM_ECONOMY": "W",
-            "BUSINESS": "J",
-            "FIRST": "F",
-            "Y": "Y",
-            "W": "W",
-            "J": "J",
-            "F": "F"
-        }
+        cabin_map = {"ECONOMY": "Y", "PREMIUM_ECONOMY": "W", "BUSINESS": "J", "FIRST": "F", "Y": "Y", "W": "W", "J": "J", "F": "F"}
         legacy_cabin = cabin_map.get(search_req.cabin.upper(), "Y")
 
         legacy_req = legacy_schemas.SearchRequest(
@@ -168,17 +152,14 @@ class FlightService:
         )
         
         legacy_data = await legacy_api_client.search_flights(legacy_req)
-        
         flight_results = legacy_data.get("data", {}).get("flight_results", {})
         
-        # Process Outbound
         outbound_data = flight_results.get("outbound", {}).get("results", [])
-        outbound_tasks = [self._map_legacy_offer_to_bff(offer) for offer in outbound_data]
+        outbound_tasks = [self._map_legacy_offer_to_bff(offer, context="search") for offer in outbound_data]
         outbound_offers = await asyncio.gather(*outbound_tasks)
         
-        # Process Inbound (if return trip)
         inbound_data = flight_results.get("inbound", {}).get("results", [])
-        inbound_tasks = [self._map_legacy_offer_to_bff(offer) for offer in inbound_data]
+        inbound_tasks = [self._map_legacy_offer_to_bff(offer, context="search") for offer in inbound_data]
         inbound_offers = await asyncio.gather(*inbound_tasks)
         
         return bff_schemas.FlightSearchResponse(
@@ -188,14 +169,12 @@ class FlightService:
             inbound_offers=inbound_offers
         )
 
-    async def get_offer_details(self, offer_id: str) -> bff_schemas.FlightOffer:
+    async def get_offer_details(self, offer_id: str) -> bff_schemas.FlightOfferDetails:
         legacy_data = await legacy_api_client.get_offer_details(offer_id)
-        # Extract correctly from legacy nesting
         offer_node = legacy_data.get("data", {}).get("offer", {})
         if not offer_node:
-            # Fallback if the nesting is different
             offer_node = legacy_data.get("offer", {}) or legacy_data
             
-        return await self._map_legacy_offer_to_bff(offer_node)
+        return await self._map_legacy_offer_to_bff(offer_node, context="details")
 
 flight_service = FlightService()

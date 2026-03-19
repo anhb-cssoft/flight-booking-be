@@ -28,17 +28,23 @@ class BaggageAllowance(BaseModel):
     checked_kg: Optional[int] = None
     carry_on_kg: Optional[int] = None
 
-class FlightOffer(BaseModel):
+# Base class for common fields
+class FlightOfferBase(BaseModel):
     offer_id: str
-    total_price: float = 0.0
-    currency: str = "USD"
     segments: List[FlightSegment] = []
     is_refundable: bool = True
     cabin_class: Optional[str] = None
+
+# Lean model for Search Results
+class FlightSearchOffer(FlightOfferBase):
+    total_price: float
+    currency: str = "USD"
+
+# Enriched model for Offer Details (No Price)
+class FlightOfferDetails(FlightOfferBase):
     status: Optional[str] = None
     expires_at: Optional[datetime] = None
     time_limit: Optional[datetime] = None
-    # Enriched details
     fare_rules: Optional[FareRules] = None
     baggage: Optional[BaggageAllowance] = None
 
@@ -52,6 +58,6 @@ class FlightSearchRequest(BaseModel):
 
 class FlightSearchResponse(BaseModel):
     outbound_count: int
-    outbound_offers: List[FlightOffer]
+    outbound_offers: List[FlightSearchOffer]
     inbound_count: int = 0
-    inbound_offers: List[FlightOffer] = []
+    inbound_offers: List[FlightSearchOffer] = []

@@ -11,7 +11,7 @@ async def search_flights(request: bff_schemas.FlightSearchRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error searching flights: {str(e)}")
 
-@router.get("/offers/{offer_id}", response_model=bff_schemas.FlightOffer)
+@router.get("/offers/{offer_id}", response_model=bff_schemas.FlightOfferDetails)
 async def get_offer_details(offer_id: str):
     try:
         return await flight_service.get_offer_details(offer_id)
