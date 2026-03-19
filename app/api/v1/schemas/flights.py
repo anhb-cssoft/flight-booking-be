@@ -10,7 +10,9 @@ class FlightSegment(BaseModel):
     flight_number: str
     carrier: str
     origin: str
+    origin_city: Optional[str] = None
     destination: str
+    destination_city: Optional[str] = None
     departure_at: datetime
     arrival_at: datetime
     duration_minutes: int

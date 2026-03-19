@@ -22,7 +22,6 @@ class AirportService:
 
         # Fetch codes from legacy
         codes = await legacy_api_client.list_airports()
-        
         # Fetch details for each code in parallel
         tasks = [self.get_airport(code) for code in codes]
         airports = await asyncio.gather(*tasks)

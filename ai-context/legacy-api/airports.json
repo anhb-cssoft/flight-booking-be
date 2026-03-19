@@ -1,0 +1,285 @@
+{
+  "endpoint": "GET /api/airports",
+  "description": "Airport reference data — returns codes only, no human-readable names. Intentionally unhelpful for the frontend. NOTE: No versioning in URL — inconsistent with other endpoints.",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "response": {
+    "airports": [
+      {
+        "code": "KUL",
+        "IATA": "KUL",
+        "country_code": "MY",
+        "CC": "MY",
+        "tz_offset": 8,
+        "coordinates": {
+          "lat": 2.7456,
+          "lng": 101.7099,
+          "longitude": 101.7099,
+          "latitude": 2.7456
+        }
+      },
+      {
+        "code": "SIN",
+        "IATA": "SIN",
+        "country_code": "SG",
+        "CC": "SG",
+        "tz_offset": 8,
+        "coordinates": {
+          "lat": 1.3644,
+          "lng": 103.9915,
+          "longitude": 103.9915,
+          "latitude": 1.3644
+        }
+      },
+      {
+        "code": "BKK",
+        "IATA": "BKK",
+        "country_code": "TH",
+        "CC": "TH",
+        "tz_offset": 7,
+        "coordinates": {
+          "lat": 13.6811,
+          "lng": 100.7471,
+          "longitude": 100.7471,
+          "latitude": 13.6811
+        }
+      },
+      {
+        "code": "CGK",
+        "IATA": "CGK",
+        "country_code": "ID",
+        "CC": "ID",
+        "tz_offset": 7,
+        "coordinates": {
+          "lat": -6.1256,
+          "lng": 106.6559,
+          "longitude": 106.6559,
+          "latitude": -6.1256
+        }
+      },
+      {
+        "code": "MNL",
+        "IATA": "MNL",
+        "country_code": "PH",
+        "CC": "PH",
+        "tz_offset": 8,
+        "coordinates": {
+          "lat": 14.5086,
+          "lng": 121.0194,
+          "longitude": 121.0194,
+          "latitude": 14.5086
+        }
+      },
+      {
+        "code": "HKG",
+        "IATA": "HKG",
+        "country_code": "HK",
+        "CC": "HK",
+        "tz_offset": 8,
+        "coordinates": {
+          "lat": 22.308,
+          "lng": 113.9185,
+          "longitude": 113.9185,
+          "latitude": 22.308
+        }
+      },
+      {
+        "code": "NRT",
+        "IATA": "NRT",
+        "country_code": "JP",
+        "CC": "JP",
+        "tz_offset": 9,
+        "coordinates": {
+          "lat": 35.7647,
+          "lng": 140.3864,
+          "longitude": 140.3864,
+          "latitude": 35.7647
+        }
+      },
+      {
+        "code": "ICN",
+        "IATA": "ICN",
+        "country_code": "KR",
+        "CC": "KR",
+        "tz_offset": 9,
+        "coordinates": {
+          "lat": 37.4602,
+          "lng": 126.4407,
+          "longitude": 126.4407,
+          "latitude": 37.4602
+        }
+      },
+      {
+        "code": "SYD",
+        "IATA": "SYD",
+        "country_code": "AU",
+        "CC": "AU",
+        "tz_offset": 11,
+        "coordinates": {
+          "lat": -33.9461,
+          "lng": 151.1772,
+          "longitude": 151.1772,
+          "latitude": -33.9461
+        }
+      },
+      {
+        "code": "PEN",
+        "IATA": "PEN",
+        "country_code": "MY",
+        "CC": "MY",
+        "tz_offset": 8,
+        "coordinates": {
+          "lat": 5.2971,
+          "lng": 100.2768,
+          "longitude": 100.2768,
+          "latitude": 5.2971
+        }
+      },
+      {
+        "code": "LGK",
+        "IATA": "LGK",
+        "country_code": "MY",
+        "CC": "MY",
+        "tz_offset": 8,
+        "coordinates": {
+          "lat": 6.3297,
+          "lng": 99.7286,
+          "longitude": 99.7286,
+          "latitude": 6.3297
+        }
+      },
+      {
+        "code": "BKI",
+        "IATA": "BKI",
+        "country_code": "MY",
+        "CC": "MY",
+        "tz_offset": 8,
+        "coordinates": {
+          "lat": 5.9372,
+          "lng": 116.0517,
+          "longitude": 116.0517,
+          "latitude": 5.9372
+        }
+      },
+      {
+        "code": "KCH",
+        "IATA": "KCH",
+        "country_code": "MY",
+        "CC": "MY",
+        "tz_offset": 8,
+        "coordinates": {
+          "lat": 1.4847,
+          "lng": 110.3483,
+          "longitude": 110.3483,
+          "latitude": 1.4847
+        }
+      },
+      {
+        "code": "DMK",
+        "IATA": "DMK",
+        "country_code": "TH",
+        "CC": "TH",
+        "tz_offset": 7,
+        "coordinates": {
+          "lat": 13.9126,
+          "lng": 100.607,
+          "longitude": 100.607,
+          "latitude": 13.9126
+        }
+      },
+      {
+        "code": "SGN",
+        "IATA": "SGN",
+        "country_code": "VN",
+        "CC": "VN",
+        "tz_offset": 7,
+        "coordinates": {
+          "lat": 10.8188,
+          "lng": 106.6519,
+          "longitude": 106.6519,
+          "latitude": 10.8188
+        }
+      },
+      {
+        "code": "HAN",
+        "IATA": "HAN",
+        "country_code": "VN",
+        "CC": "VN",
+        "tz_offset": 7,
+        "coordinates": {
+          "lat": 21.2212,
+          "lng": 105.807,
+          "longitude": 105.807,
+          "latitude": 21.2212
+        }
+      },
+      {
+        "code": "RGN",
+        "IATA": "RGN",
+        "country_code": "MM",
+        "CC": "MM",
+        "tz_offset": 6.5,
+        "coordinates": {
+          "lat": 16.9073,
+          "lng": 96.1332,
+          "longitude": 96.1332,
+          "latitude": 16.9073
+        }
+      },
+      {
+        "code": "PNH",
+        "IATA": "PNH",
+        "country_code": "KH",
+        "CC": "KH",
+        "tz_offset": 7,
+        "coordinates": {
+          "lat": 11.5466,
+          "lng": 104.8441,
+          "longitude": 104.8441,
+          "latitude": 11.5466
+        }
+      },
+      {
+        "code": "DEL",
+        "IATA": "DEL",
+        "country_code": "IN",
+        "CC": "IN",
+        "tz_offset": 5.5,
+        "coordinates": {
+          "lat": 28.5562,
+          "lng": 77.1,
+          "longitude": 77.1,
+          "latitude": 28.5562
+        }
+      },
+      {
+        "code": "DXB",
+        "IATA": "DXB",
+        "country_code": "AE",
+        "CC": "AE",
+        "tz_offset": 4,
+        "coordinates": {
+          "lat": 25.2532,
+          "lng": 55.3657,
+          "longitude": 55.3657,
+          "latitude": 25.2532
+        }
+      },
+      {
+        "code": "LHR",
+        "IATA": "LHR",
+        "country_code": "GB",
+        "CC": "GB",
+        "tz_offset": 0,
+        "coordinates": {
+          "lat": 51.4706,
+          "lng": -0.4619,
+          "longitude": -0.4619,
+          "latitude": 51.4706
+        }
+      }
+    ],
+    "total": 21
+  }
+}

@@ -4,6 +4,7 @@ import re
 from app.clients.legacy_api import legacy_api_client
 from app.clients.schemas import legacy as legacy_schemas
 from app.api.v1.schemas import flights as bff_schemas
+from app.services.airports import airport_service
 
 class FlightService:
     def _parse_legacy_datetime(self, dt_val: Union[str, int]) -> datetime:
@@ -35,7 +36,7 @@ class FlightService:
             
         return datetime.now() # Fallback
 
-    def _map_legacy_offer_to_bff(self, legacy_offer: Dict[str, Any]) -> bff_schemas.FlightOffer:
+    async def _map_legacy_offer_to_bff(self, legacy_offer: Dict[str, Any]) -> bff_schemas.FlightOffer:
         segments = []
         legacy_segments = legacy_offer.get("segments", {}).get("segment_list", [])
         
@@ -45,6 +46,13 @@ class FlightService:
                 arr_info = leg.get("arrival_info", {})
                 carrier = leg.get("carrier", {})
                 
+                origin_code = dep_info.get("airport", {}).get("code", "UNK")
+                dest_code = arr_info.get("airport", {}).get("code", "UNK")
+                
+                # Fetch city names from cache (fast)
+                origin_airport = await airport_service.get_airport(origin_code)
+                dest_airport = await airport_service.get_airport(dest_code)
+                
                 # Use scheduled_time or dt for departure
                 dep_time = self._parse_legacy_datetime(dep_info.get("scheduled_time") or dep_info.get("dt"))
                 # Use scheduled_time or arr_date for arrival
@@ -53,8 +61,10 @@ class FlightService:
                 segments.append(bff_schemas.FlightSegment(
                     flight_number=carrier.get("number") or f"{carrier.get('operating')}{carrier.get('flight_no')}",
                     carrier=carrier.get("operating", "Unknown"),
-                    origin=dep_info.get("airport", {}).get("code", "UNK"),
-                    destination=arr_info.get("airport", {}).get("code", "UNK"),
+                    origin=origin_code,
+                    origin_city=origin_airport.city,
+                    destination=dest_code,
+                    destination_city=dest_airport.city,
                     departure_at=dep_time,
                     arrival_at=arr_time,
                     duration_minutes=leg.get("duration_minutes", 0)
@@ -94,7 +104,9 @@ class FlightService:
         
         outbound_results = legacy_data.get("data", {}).get("flight_results", {}).get("outbound", {}).get("results", [])
         
-        offers = [self._map_legacy_offer_to_bff(offer) for offer in outbound_results]
+        # Parallel mapping because it calls airport_service.get_airport (async)
+        tasks = [self._map_legacy_offer_to_bff(offer) for offer in outbound_results]
+        offers = await asyncio.gather(*tasks)
         
         return bff_schemas.FlightSearchResponse(
             count=len(offers),
@@ -103,8 +115,6 @@ class FlightService:
 
     async def get_offer_details(self, offer_id: str) -> bff_schemas.FlightOffer:
         legacy_data = await legacy_api_client.get_offer_details(offer_id)
-        # Assuming the legacy details format is similar to the search result
-        # Actually, let's check if the mock API returns something different for offer details.
-        return self._map_legacy_offer_to_bff(legacy_data)
+        return await self._map_legacy_offer_to_bff(legacy_data)
 
 flight_service = FlightService()
