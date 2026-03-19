@@ -1,6 +1,7 @@
 from typing import List, Dict, Any, Optional, Union
 from datetime import datetime
 import re
+import asyncio
 from app.clients.legacy_api import legacy_api_client
 from app.clients.schemas import legacy as legacy_schemas
 from app.api.v1.schemas import flights as bff_schemas
