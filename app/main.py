@@ -21,7 +21,7 @@ app.add_middleware(
 async def health_check():
     return {"status": "ok", "message": "Flight Booking BFF is running"}
 
-# TODO: Include routers once endpoints are implemented
-# app.include_router(flights.router, prefix="/api/v1/flights", tags=["Flights"])
-# app.include_router(bookings.router, prefix="/api/v1/bookings", tags=["Bookings"])
-# app.include_router(airports.router, prefix="/api/v1/airports", tags=["Airports"])
+# Include routers
+app.include_router(flights.router, prefix="/api/v1/flights", tags=["Flights"])
+app.include_router(bookings.router, prefix="/api/v1/bookings", tags=["Bookings"])
+app.include_router(airports.router, prefix="/api/v1/airports", tags=["Airports"])
