@@ -9,20 +9,30 @@ from app.services.airports import airport_service
 
 class FlightService:
     def _parse_legacy_datetime(self, dt_val: Union[str, int]) -> datetime:
-        """Helper to parse the chaotic legacy datetime formats."""
+        """Helper to parse the chaotic legacy datetime formats into ISO 8601 compliant objects."""
+        if not dt_val:
+            return datetime.now()
+
         if isinstance(dt_val, int):
             return datetime.fromtimestamp(dt_val)
         
         if not isinstance(dt_val, str):
-            return datetime.now() # Fallback
+            return datetime.now()
+
+        # Clean string from common artifacts
+        dt_val = dt_val.strip()
 
         # Try various formats
         formats = [
-            "%Y%m%d%H%M%S",          # 20241225055000 / 20260319082124
-            "%d/%m/%Y %H:%M",        # 25/12/2024 05:50 / 20/03/2026 08:46
+            "%Y%m%d%H%M%S",          # 20241225055000
+            "%d/%m/%Y %H:%M",        # 25/12/2024 05:50
             "%d-%b-%Y %I:%M %p",     # 25-Dec-2024 01:10 PM
             "%Y-%m-%dT%H:%M:%S%z",   # 2024-12-25T12:10:00+07:00
-            "%Y-%m-%d"               # 2024-12-25
+            "%Y-%m-%dT%H:%M:%S",     # 2024-12-25T12:10:00
+            "%d/%m/%Y",              # 25/12/2024
+            "%Y-%m-%d",              # 2024-12-25
+            "%d-%b-%Y %H:%M",        # 25-Dec-2024 13:10
+            "%d-%m-%Y %I:%M %p",     # 19-Dec-2024 09:40 PM
         ]
         
         for fmt in formats:
@@ -33,15 +43,17 @@ class FlightService:
         
         # If it's a numeric string (timestamp)
         if dt_val.isdigit():
-            # Handle long timestamp string
-            if len(dt_val) > 10:
+            if len(dt_val) == 14: # YYYYMMDDHHmmss
                 try:
                     return datetime.strptime(dt_val, "%Y%m%d%H%M%S")
                 except:
                     pass
-            return datetime.fromtimestamp(int(dt_val))
+            try:
+                return datetime.fromtimestamp(int(dt_val))
+            except:
+                pass
             
-        return datetime.now() # Fallback
+        return datetime.now()
 
     async def _map_legacy_offer_to_bff(self, legacy_offer: Dict[str, Any], context: str = "search") -> Union[bff_schemas.FlightSearchOffer, bff_schemas.FlightOfferDetails]:
         segments = []
@@ -71,35 +83,70 @@ class FlightService:
                     carrier=carrier.get("operating", "Unknown"),
                     origin=origin_code,
                     origin_city=origin_airport.city,
+                    origin_terminal=dep_info.get("airport", {}).get("terminal"),
                     destination=dest_code,
                     destination_city=dest_airport.city,
+                    destination_terminal=arr_info.get("airport", {}).get("terminal"),
                     departure_at=dep_time,
                     arrival_at=arr_time,
-                    duration_minutes=leg.get("duration_minutes", 0)
+                    duration_minutes=leg.get("duration_minutes", 0),
+                    aircraft_code=leg.get("equipment", {}).get("aircraft_code") or leg.get("equipment", {}).get("type")
                 ))
         
+        # Cabin mapping
         cabin_code = legacy_offer.get("cabin_class") or legacy_offer.get("booking_class") or detected_cabin_code
-        final_cabin_label = None
+        final_cabin_label = "ECONOMY"
         if cabin_code:
-            cabin_reverse_map = {"Y": "ECONOMY", "W": "PREMIUM_ECONOMY", "J": "BUSINESS", "F": "FIRST"}
-            final_cabin_label = cabin_reverse_map.get(cabin_code.upper(), "ECONOMY")
+            cabin_reverse_map = {"Y": "ECONOMY", "W": "PREMIUM_ECONOMY", "J": "BUSINESS", "C": "BUSINESS", "F": "FIRST"}
+            final_cabin_label = cabin_reverse_map.get(str(cabin_code).upper(), "ECONOMY")
+
+        # Pricing mapping
+        legacy_pricing = legacy_offer.get("pricing", {})
+        taxes_fees = legacy_pricing.get("taxes_fees", {})
+        pricing = bff_schemas.PricingBreakdown(
+            total=float(legacy_pricing.get("total") or legacy_pricing.get("total_amount") or 0),
+            base=float(legacy_pricing.get("base_fare") or legacy_pricing.get("BaseFare") or 0),
+            tax=float(taxes_fees.get("total_tax") or taxes_fees.get("TotalTax") or 0),
+            currency=legacy_pricing.get("currency") or legacy_pricing.get("CurrencyCode") or "USD",
+            tax_breakdown=[
+                bff_schemas.TaxItem(code=t.get("code"), amount=float(t.get("amount") or 0))
+                for t in taxes_fees.get("tax_breakdown", [])
+            ]
+        )
+
+        # Baggage mapping
+        legacy_baggage = legacy_offer.get("baggage", {}) or legacy_offer.get("baggage_allowance", {})
+        baggage = bff_schemas.BaggageAllowance(
+            checked_pieces=legacy_baggage.get("checked", {}).get("pieces"),
+            checked_weight_kg=legacy_baggage.get("checked", {}).get("weight_kg") or legacy_baggage.get("checked", {}).get("max_weight_kg"),
+            cabin_pieces=legacy_baggage.get("cabin_baggage", {}).get("pieces") or legacy_baggage.get("carry_on", {}).get("pieces"),
+            cabin_weight_kg=legacy_baggage.get("cabin_baggage", {}).get("weight_kg") or legacy_baggage.get("carry_on", {}).get("max_weight_kg")
+        )
 
         common_data = {
-            "offer_id": legacy_offer.get("offer_id") or legacy_offer.get("id"),
+            "offer_id": legacy_offer.get("offer_id") or legacy_offer.get("id") or legacy_offer.get("offerId"),
             "segments": segments,
-            "is_refundable": legacy_offer.get("refundable", True),
+            "is_refundable": legacy_offer.get("refundable") if legacy_offer.get("refundable") is not None else legacy_offer.get("isRefundable", True),
             "cabin_class": final_cabin_label,
+            "pricing": pricing,
+            "baggage": baggage,
+            "seats_remaining": legacy_offer.get("seats_remaining") or legacy_offer.get("avl_seats") or legacy_offer.get("seatAvailability"),
+            "fare_basis": legacy_offer.get("fare_basis"),
+            "booking_class": legacy_offer.get("booking_class"),
+            "validating_carrier": legacy_offer.get("validating_carrier")
         }
 
         if context == "search":
-            pricing = legacy_offer.get("pricing", {})
-            return bff_schemas.FlightSearchOffer(
-                **common_data,
-                total_price=float(pricing.get("total", 0)),
-                currency=pricing.get("currency", "USD")
-            )
+            return bff_schemas.FlightSearchOffer(**common_data)
         
-        # Context is "details"
+        # Details context
+        status = legacy_offer.get("status")
+        expires_at_raw = legacy_offer.get("expires_at") or legacy_offer.get("last_ticketing_date")
+        expires_at = self._parse_legacy_datetime(expires_at_raw) if expires_at_raw else None
+        
+        time_limit_raw = legacy_offer.get("payment_requirements", {}).get("time_limit")
+        time_limit = self._parse_legacy_datetime(time_limit_raw) if time_limit_raw else None
+
         fare_details = legacy_offer.get("fare_details", {})
         rules = fare_details.get("rules", {})
         refund = rules.get("refund", {})
@@ -112,30 +159,15 @@ class FlightService:
                 refund_penalty=refund.get("penalty", {}).get("amount"),
                 change_allowed=change.get("allowed", True),
                 change_penalty=change.get("penalty", {}).get("amount"),
-                currency=refund.get("penalty", {}).get("currency") or "USD"
+                currency=refund.get("penalty", {}).get("currency") or pricing.currency
             )
-
-        baggage_data = legacy_offer.get("baggage_allowance", {})
-        baggage = None
-        if baggage_data:
-            baggage = bff_schemas.BaggageAllowance(
-                checked_kg=baggage_data.get("checked", {}).get("max_weight_kg"),
-                carry_on_kg=baggage_data.get("carry_on", {}).get("max_weight_kg")
-            )
-            
-        expires_at_raw = legacy_offer.get("expires_at")
-        expires_at = self._parse_legacy_datetime(expires_at_raw) if expires_at_raw else None
-        
-        time_limit_raw = legacy_offer.get("payment_requirements", {}).get("time_limit")
-        time_limit = self._parse_legacy_datetime(time_limit_raw) if time_limit_raw else None
 
         return bff_schemas.FlightOfferDetails(
             **common_data,
-            status=legacy_offer.get("status"),
+            status=status,
             expires_at=expires_at,
             time_limit=time_limit,
-            fare_rules=fare_rules,
-            baggage=baggage
+            fare_rules=fare_rules
         )
 
     async def search_flights(self, search_req: bff_schemas.FlightSearchRequest) -> bff_schemas.FlightSearchResponse:

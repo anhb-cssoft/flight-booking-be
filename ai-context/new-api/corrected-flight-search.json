@@ -1,0 +1,48 @@
+{
+  "outboundCount": 1,
+  "outboundOffers": [
+    {
+      "offerId": "93f1d242d6fddd80",
+      "segments": [
+        {
+          "flightNumber": "MH790",
+          "carrier": "MH",
+          "origin": "KUL",
+          "originCity": "Kuala Lumpur",
+          "originTerminal": "3",
+          "destination": "SIN",
+          "destinationCity": "Singapore",
+          "destinationTerminal": "2",
+          "departureAt": "2024-12-20T21:40:00Z",
+          "arrivalAt": "2024-12-20T22:39:00Z",
+          "durationMinutes": 59,
+          "aircraftCode": "333"
+        }
+      ],
+      "pricing": {
+        "total": 88.84,
+        "base": 77.67,
+        "tax": 11.17,
+        "currency": "MYR",
+        "taxBreakdown": [
+          { "code": "YQ", "amount": 5.51 },
+          { "code": "UB", "amount": 5.66 }
+        ]
+      },
+      "baggage": {
+        "checkedPieces": 1,
+        "checkedWeightKg": 20,
+        "cabinPieces": 1,
+        "cabinWeightKg": 7
+      },
+      "isRefundable": false,
+      "cabinClass": "ECONOMY",
+      "seatsRemaining": 9,
+      "fareBasis": "Y1M",
+      "bookingClass": "Y",
+      "validatingCarrier": "MH"
+    }
+  ],
+  "inboundCount": 0,
+  "inboundOffers": []
+}
