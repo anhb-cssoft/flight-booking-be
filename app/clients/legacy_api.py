@@ -49,8 +49,12 @@ class LegacyAPIClient:
         return await self._request("GET", f"/api/v1/reservations/{ref}")
 
     async def list_airports(self) -> List[str]:
-        """GET /api/airports"""
-        return await self._request("GET", "/api/airports")
+        """GET /api/airports - Returns a list of airport codes."""
+        data = await self._request("GET", "/api/airports")
+        # Extract the list of objects from data["response"]["airports"]
+        # based on the provided JSON structure.
+        airports_list = data.get("response", {}).get("airports", [])
+        return [airport["code"] for airport in airports_list if "code" in airport]
 
     async def get_airport(self, code: str) -> Dict[str, Any]:
         """GET /api/airports/{code}"""
