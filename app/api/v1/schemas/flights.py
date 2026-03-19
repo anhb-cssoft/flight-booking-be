@@ -31,7 +31,7 @@ class FlightSearchRequest(BaseModel):
     departure_date: str
     return_date: Optional[str] = None
     passengers: int = 1
-    cabin: str = "ECONOMY"
+    cabin: str = "Y"
 
 class FlightSearchResponse(BaseModel):
     outbound_count: int
