@@ -1,86 +1,109 @@
-# Flight Booking BFF API
+# Development Process – Flight Booking BFF (FastAPI)
 
-This project is a **Backend for Frontend (BFF)** built with **FastAPI**, serving as a clean and modern wrapper for a legacy flight booking system (easyGDS).
+Important note: I have never had the opportunity to work on a real project as a backend developer, with the Python language and FastAPI framework. This project was implemented 100% by collaborating with AI (Gemini CLI, ChatGPT, Perplexity) to analyze requirements, propose architectural solutions, implement source code, write tests, and guide deployment.
 
-## Key Features
-- **Data Standardization**: Maps data from chaotic legacy formats to modern RESTful standards.
-- **Caching**: Uses `diskcache` to store airport information, minimizing redundant calls to the legacy API.
-- **Error Handling**: Unified error response format for the frontend.
-- **Async Support**: Leverages `httpx` and `FastAPI` for high performance.
+## 1. Approach & Thought Process
 
----
+This service is designed following the **Backend For Frontend (BFF)** model, sitting between the Frontend and the Legacy API system.
 
-## 1. System Requirements
-- **Python**: 3.10 or higher.
-- **Operating System**: Windows, macOS, or Linux.
+I started by analyzing the Swagger/OpenAPI using AI, then applied a research-first approach:
 
-## 2. Installation and Setup
+- Identifying issues of the Legacy system:
+  - Fragmented data
+  - Inconsistent formats
+  - Complex nested structures
+- Defining the role of the BFF:
+  - Data transformation (flattening)
+  - Response standardization (ISO date, camelCase)
+  - Centralized error handling
 
-### Step 1: Create a Virtual Environment (Recommended)
-```bash
-python -m venv .venv
-# Activate on Windows (PowerShell):
-.\.venv\Scripts\Activate.ps1
-# Activate on macOS/Linux:
-source .venv/bin/activate
-```
+The system is divided into modules:
 
-### Step 2: Install Dependencies
-```bash
-pip install .
-```
-If you want to install development tools (tests, linting):
-```bash
-pip install ".[dev]"
-```
-
-### Step 3: Configure Environment Variables
-Check the `.env` file in the root directory to ensure the `LEGACY_API_BASE_URL` is correct:
-```env
-LEGACY_API_BASE_URL=https://mock-travel-api.vercel.app
-```
+- Flights
+- Bookings
+- Airports (static data + cache)
 
 ---
 
-## 3. Running the Application
+## 2. Technical Decisions
 
-Use the following command to run the server in development mode:
-```bash
-# Windows (PowerShell)
-$env:PYTHONPATH="."
-uvicorn app.main:app --reload
+- **FastAPI**  
+  Chosen for high performance (async) and strong type support.  
+  → Helps improve reliability and fits well with AI-assisted development.
 
-# macOS/Linux
-PYTHONPATH=. uvicorn app.main:app --reload
-```
+- **Layered Architecture**
+  - `api/` → routes & schema
+  - `services/` → business logic & data transformation
+  - `clients/` → call legacy API + retry/timeout
+  - `core/` → config & error handling
 
-The server will run by default at: **http://127.0.0.1:8000**
+- **Pydantic v2**  
+  Validates data and automatically converts snake_case ↔ camelCase.
 
----
-
-## 4. API Documentation (Interactive Docs)
-Once the server is running, you can access the following links to view the documentation and test endpoints directly:
-- **Swagger UI**: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
-- **ReDoc**: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
+- **Caching (LRU)**  
+  Optimizes access to static data (e.g., airport).
 
 ---
 
-## 5. Running Tests
-To ensure quality and stability, run the test suite using `pytest`:
-```bash
-# Windows (PowerShell)
-$env:PYTHONPATH="."
-python -m pytest
+## 3. Testing Strategy
 
-# macOS/Linux
-PYTHONPATH=. pytest
-```
+Focus on correctness and resilience:
+
+- Integration test with mocked legacy API
+- Main cases:
+  - Valid / invalid input
+  - Handling 503 / 429 errors (retry)
+  - Verifying data transformation logic (flattening)
+  - Ensuring unified error format
 
 ---
 
-## 6. Main Directory Structure
-- `app/api/`: Endpoint and schema definitions (data format returned to the frontend).
-- `app/clients/`: Client connecting to the legacy API (easyGDS).
-- `app/services/`: Business logic and data mapping services.
-- `app/core/`: System configuration files.
-- `tests/`: Test cases verifying the correctness of the application.
+## 4. AI Usage
+
+I use AI as a **productivity layer** to accelerate development:
+
+- **ChatGPT / Perplexity**
+  - Analyze legacy API
+  - Suggest architecture and suitable libraries
+
+- **Gemini CLI**
+  - Implement code
+  - Generate tests
+  - Maintain project structure
+  - Refactor and validate logic
+
+## 5. Workflow
+
+1. Analyze API contract (Swagger → Pydantic models)
+2. Design layered architecture
+3. Implement each module (Flights → Booking)
+4. Validate with tests and edge cases
+5. Optimize structure and performance
+
+---
+
+## 6. Improvements
+
+- Replace LRU cache with Redis for better scalability
+- Integrate OpenTelemetry (tracing)
+- Improve logging for debugging legacy system
+
+## 7. Run Instructions
+
+- Requirements:
+  - Python 3.10+
+  - Virtual environment (venv)
+
+- Steps:
+
+1.  Create and activate virtual environment:
+    python -m venv .venv
+    source .venv/bin/activate # On Windows: .venv\Scripts\activate
+
+2.  Install dependencies:
+    pip install -r requirements.txt
+
+3.  Run the application:
+    uvicorn app.main:app --reload
+    The app will run at: http://localhost:8000
+    Visit http://localhost:8000/dos to check the API
